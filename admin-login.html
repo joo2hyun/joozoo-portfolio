@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — Joohyun Kim</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #FBFAF7; --surface: #F3F1EA; --ink: #171717; --ink-soft: #55524A;
+  --muted: #8C8879; --border: #E2DFD3; --border-strong: #171717;
+  --accent: #A16207; --accent-ink: #FBFAF7;
+  --display: 'Space Grotesk', sans-serif; --body: 'Archivo', sans-serif;
+}
+body {
+  font-family: var(--body); background: var(--bg); color: var(--ink);
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.card {
+  width: 100%; max-width: 380px;
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 2.5rem 2rem; background: var(--surface);
+}
+.logo {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--ink); color: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-weight: 700; font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+h1 { font-family: var(--display); font-weight: 700; font-size: 1.4rem; margin-bottom: 0.4rem; }
+.sub { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 1.75rem; }
+.field { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+.field label { font-family: var(--display); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.field input {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+  padding: 0.8rem 1rem; font-family: var(--body); font-size: 1rem; color: var(--ink); outline: none;
+}
+.field input:focus { border-color: var(--border-strong); }
+button {
+  width: 100%; font-family: var(--display); font-weight: 500; font-size: 0.88rem;
+  color: var(--accent-ink); background: var(--accent); border: 1px solid var(--accent);
+  padding: 0.85rem; border-radius: 999px; cursor: pointer; margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+button:hover { background: var(--ink); border-color: var(--ink); }
+button:disabled { opacity: 0.6; cursor: default; }
+.error { font-size: 0.8rem; color: #B4262A; margin-top: 1rem; display: none; }
+.error.show { display: block; }
+</style>
+</head>
+<body>
+
+<form class="card" id="loginForm">
+  <div class="logo">JK</div>
+  <h1>Admin Login</h1>
+  <p class="sub">Sign in to edit your project pages.</p>
+  <div class="field">
+    <label for="email">Email</label>
+    <input type="email" id="email" required autocomplete="username">
+  </div>
+  <div class="field">
+    <label for="password">Password</label>
+    <input type="password" id="password" required autocomplete="current-password">
+  </div>
+  <button type="submit" id="submitBtn">Sign In</button>
+  <p class="error" id="error">Invalid email or password.</p>
+</form>
+
+<script src="supabase-config.js"></script>
+<script>
+supabaseClient.auth.getSession().then(({ data }) => {
+  if (data.session) window.location.href = 'admin.html';
+});
+
+const form = document.getElementById('loginForm');
+const errorEl = document.getElementById('error');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errorEl.classList.remove('show');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Signing in…';
+
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    errorEl.textContent = error.message;
+    errorEl.classList.add('show');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Sign In';
+    return;
+  }
+  window.location.href = 'admin.html';
+});
+</script>
+</body>
+</html>

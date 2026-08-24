@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Joohyun Kim</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #FBFAF7; --surface: #F3F1EA; --surface-2: #ECE9DF; --ink: #171717; --ink-soft: #55524A;
+  --muted: #8C8879; --border: #E2DFD3; --border-strong: #171717;
+  --accent: #A16207; --accent-ink: #FBFAF7;
+  --display: 'Space Grotesk', sans-serif; --body: 'Archivo', sans-serif;
+}
+body { font-family: var(--body); background: var(--bg); color: var(--ink); min-height: 100vh; }
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; background: rgba(251,250,247,0.92); backdrop-filter: blur(8px); z-index: 10;
+}
+.topbar-left { display: flex; align-items: center; gap: 0.9rem; }
+.logo {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-weight: 700; font-size: 0.8rem;
+}
+.topbar h1 { font-family: var(--display); font-weight: 600; font-size: 1rem; }
+.pill-btn {
+  font-family: var(--display); font-weight: 500; font-size: 0.8rem;
+  padding: 0.55rem 1rem; border-radius: 999px; border: 1px solid var(--border-strong);
+  background: transparent; color: var(--ink); cursor: pointer; text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.pill-btn:hover { background: var(--ink); color: var(--bg); }
+.pill-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.pill-btn.primary:hover { background: var(--ink); border-color: var(--ink); }
+
+.layout { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 66px); }
+.sidebar { border-right: 1px solid var(--border); padding: 1.5rem 1rem; }
+.sidebar-head { display: flex; align-items: center; justify-content: space-between; padding: 0 0.5rem 1rem; }
+.sidebar-head span { font-family: var(--display); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.project-list { display: flex; flex-direction: column; gap: 0.4rem; }
+.project-item {
+  display: flex; flex-direction: column; gap: 0.15rem;
+  padding: 0.7rem 0.9rem; border-radius: 12px; cursor: pointer; border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.project-item:hover { background: var(--surface); }
+.project-item.active { background: var(--surface); border-color: var(--border-strong); }
+.project-item .name { font-family: var(--display); font-weight: 600; font-size: 0.88rem; }
+.project-item .meta { font-size: 0.72rem; color: var(--muted); }
+
+.main { padding: 2rem 2.5rem; max-width: 720px; }
+.empty-state { color: var(--muted); font-size: 0.9rem; padding-top: 3rem; text-align: center; }
+
+.form-section { margin-bottom: 2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.field { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.field label { font-family: var(--display); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.field input, .field textarea {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 0.75rem 0.9rem; font-family: var(--body); font-size: 1rem; color: var(--ink); outline: none; resize: vertical;
+}
+.field select {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 0.75rem 0.9rem; font-family: var(--body); font-size: 1rem; color: var(--ink);
+  outline: none; cursor: pointer;
+}
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--border-strong); }
+.field .hint { font-size: 0.75rem; color: var(--muted); }
+
+.image-field { display: flex; align-items: center; gap: 1rem; }
+.image-preview {
+  width: 96px; height: 72px; border-radius: 10px; border: 1px dashed var(--border-strong);
+  background: var(--surface); display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0; color: var(--muted); font-size: 0.68rem; text-align: center;
+}
+.image-preview img { width: 100%; height: 100%; object-fit: cover; }
+.image-actions { display: flex; flex-direction: column; gap: 0.5rem; }
+.image-actions input[type="file"] { font-size: 0.8rem; }
+
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.75rem; margin-bottom: 0.85rem; }
+.gallery-thumb { position: relative; aspect-ratio: 4/3; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-thumb .remove-btn {
+  position: absolute; top: 4px; right: 4px; width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(23,23,23,0.75); color: white; border: none; cursor: pointer;
+  font-size: 0.8rem; line-height: 1; display: flex; align-items: center; justify-content: center;
+}
+.gallery-thumb .remove-btn:hover { background: #B4262A; }
+.gallery-thumb .reorder-row {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 3px 5px; background: rgba(23,23,23,0.7);
+}
+.gallery-thumb .move-btn {
+  background: none; border: none; color: white; cursor: pointer;
+  font-size: 0.8rem; line-height: 1; padding: 2px 5px;
+}
+.gallery-thumb .move-btn:disabled { opacity: 0.3; cursor: default; }
+.gallery-thumb .order-num { color: white; font-size: 0.68rem; font-family: var(--display); font-weight: 600; }
+.gallery-empty { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.85rem; }
+.gallery-upload-status { font-size: 0.78rem; color: var(--muted); margin-top: 0.5rem; }
+
+/* CONTENT BLOCKS */
+.blocks-toolbar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.block-card {
+  border: 1px solid var(--border); border-radius: 14px;
+  background: var(--surface); padding: 1rem 1.1rem; margin-bottom: 0.9rem;
+}
+.block-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+.block-type {
+  font-family: var(--display); font-weight: 600; font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+}
+.block-controls { display: flex; gap: 0.3rem; }
+.block-controls button {
+  width: 28px; height: 28px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg); cursor: pointer;
+  font-size: 0.8rem; line-height: 1; color: var(--ink);
+}
+.block-controls button:hover { background: var(--ink); color: var(--bg); }
+.block-controls button:disabled { opacity: 0.3; cursor: default; }
+.block-controls button.del:hover { background: #B4262A; border-color: #B4262A; color: white; }
+.block-card .field { margin-bottom: 0.75rem; }
+.block-card .field:last-child { margin-bottom: 0; }
+.blocks-empty {
+  font-size: 0.85rem; color: var(--muted); text-align: center;
+  padding: 1.5rem; border: 1px dashed var(--border-strong); border-radius: 14px;
+}
+.block-images-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+  gap: 0.5rem; margin-bottom: 0.6rem;
+}
+.block-thumb { position: relative; aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.block-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.block-thumb .bt-remove {
+  position: absolute; top: 2px; right: 2px; width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(23,23,23,0.75); color: white; border: none; cursor: pointer;
+  font-size: 0.62rem; line-height: 1; display: flex; align-items: center; justify-content: center;
+}
+.block-thumb .bt-remove:hover { background: #B4262A; }
+.block-thumb .bt-move {
+  position: absolute; bottom: 2px; left: 2px; right: 2px;
+  display: flex; justify-content: space-between; gap: 2px;
+}
+.block-thumb .bt-move button {
+  flex: 1; background: rgba(23,23,23,0.7); color: white; border: none;
+  cursor: pointer; font-size: 0.6rem; padding: 1px 0; border-radius: 3px;
+}
+.block-thumb .bt-move button:disabled { opacity: 0.3; cursor: default; }
+
+.actions-row { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.status { font-size: 0.82rem; color: var(--muted); }
+.status.saved { color: #3F7D3F; }
+.danger-btn {
+  font-family: var(--display); font-weight: 500; font-size: 0.8rem;
+  color: #B4262A; background: transparent; border: 1px solid #B4262A; border-radius: 999px;
+  padding: 0.55rem 1rem; cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.danger-btn:hover { background: #B4262A; color: white; }
+
+@media (max-width: 800px) {
+  .topbar { padding: 1rem; flex-wrap: wrap; gap: 0.75rem; }
+  .topbar h1 { font-size: 0.9rem; }
+  .pill-btn { font-size: 0.75rem; padding: 0.5rem 0.85rem; }
+
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { border-right: none; border-bottom: 1px solid var(--border); padding: 1.25rem 1rem; }
+  .main { padding: 1.5rem 1.25rem; max-width: 100%; }
+
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+  .image-field { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .image-preview { width: 100%; height: 140px; }
+
+  .actions-row { flex-direction: column; align-items: stretch; gap: 1rem; }
+  .actions-row > div { justify-content: space-between; }
+  .pill-btn.primary#saveBtn { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">JK</div>
+    <h1>Project Admin</h1>
+  </div>
+  <div style="display:flex; gap:0.6rem;">
+    <a href="index.html" target="_blank" class="pill-btn">View Site ↗</a>
+    <button class="pill-btn" id="logoutBtn">Log Out</button>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <span>Projects</span>
+      <button class="pill-btn primary" id="addBtn" style="padding:0.35rem 0.7rem; font-size:0.72rem;">+ Add</button>
+    </div>
+    <div class="project-list" id="projectList"></div>
+  </aside>
+
+  <main class="main" id="main">
+    <p class="empty-state">Select a project on the left to edit it.</p>
+  </main>
+</div>
+
+<script src="supabase-config.js"></script>
+<script>
+let projects = [];
+let currentSlug = null;
+
+(async function guard() {
+  const { data } = await supabaseClient.auth.getSession();
+  if (!data.session) { window.location.href = 'admin-login.html'; return; }
+  loadProjects();
+})();
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await supabaseClient.auth.signOut();
+  window.location.href = 'admin-login.html';
+});
+
+async function loadProjects() {
+  const { data, error } = await supabaseClient.from('projects').select('*').order('sort_order');
+  if (error) { alert('Failed to load projects: ' + error.message); return; }
+  projects = data;
+  renderList();
+}
+
+function renderList() {
+  const list = document.getElementById('projectList');
+  list.innerHTML = '';
+  projects.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'project-item' + (p.slug === currentSlug ? ' active' : '');
+    el.innerHTML = `<span class="name">${escapeHtml(p.name)}</span><span class="meta">${escapeHtml(p.year)} · ${escapeHtml(p.category)}</span>`;
+    el.addEventListener('click', () => selectProject(p.slug));
+    list.appendChild(el);
+  });
+}
+
+function escapeHtml(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function selectProject(slug) {
+  currentSlug = slug;
+  renderList();
+  renderForm(projects.find(p => p.slug === slug));
+}
+
+document.getElementById('addBtn').addEventListener('click', async () => {
+  const name = prompt('New project name:');
+  if (!name) return;
+  const slug = name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  if (projects.find(p => p.slug === slug)) { alert('A project with a similar name already exists.'); return; }
+  const { data, error } = await supabaseClient.from('projects').insert({
+    slug, name, sort_order: projects.length + 1
+  }).select().single();
+  if (error) { alert('Failed to create: ' + error.message); return; }
+  projects.push(data);
+  selectProject(slug);
+});
+
+const COVER_COLORS = [
+  { v: 'c1', label: 'Navy' },
+  { v: 'c2', label: 'Terracotta' },
+  { v: 'c3', label: 'Sand' },
+  { v: 'c4', label: 'Olive' },
+  { v: 'c5', label: 'Dusty Blue' },
+  { v: 'c6', label: 'Clay' },
+  { v: 'c7', label: 'Charcoal' },
+  { v: 'c8', label: 'Mustard' }
+];
+const COVER_PATTERNS = [
+  { v: 'cover-lines', label: 'Diagonal lines' },
+  { v: 'cover-grid', label: 'Dot grid' },
+  { v: 'cover-split', label: 'Diagonal split' }
+];
+
+let editingGallery = [];
+let editingBlocks = [];
+
+function newBlock(type) {
+  const id = 'b' + Date.now() + Math.random().toString(36).slice(2, 6);
+  if (type === 'heading') return { id, type, heading: '', subtitle: '' };
+  if (type === 'text') return { id, type, body: '', columns: 1 };
+  return { id, type: 'images', images: [], columns: 3, caption: '' };
+}
+
+function renderBlocks() {
+  const list = document.getElementById('blocksList');
+  if (!editingBlocks.length) {
+    list.innerHTML = '<div class="blocks-empty">No sections yet. Use the buttons above to add one.</div>';
+    return;
+  }
+  list.innerHTML = editingBlocks.map((b, i) => {
+    const head = `
+      <div class="block-head">
+        <span class="block-type">${b.type === 'images' ? 'Image Grid' : b.type}</span>
+        <div class="block-controls">
+          <button type="button" data-mv="${i}" data-dir="-1" ${i === 0 ? 'disabled' : ''} title="Move up">↑</button>
+          <button type="button" data-mv="${i}" data-dir="1" ${i === editingBlocks.length - 1 ? 'disabled' : ''} title="Move down">↓</button>
+          <button type="button" class="del" data-del="${i}" title="Delete section">✕</button>
+        </div>
+      </div>`;
+
+    if (b.type === 'heading') {
+      return `<div class="block-card">${head}
+        <div class="field"><label>Heading</label><input data-bi="${i}" data-bk="heading" value="${escapeHtml(b.heading || '')}"></div>
+        <div class="field"><label>Subtitle</label><input data-bi="${i}" data-bk="subtitle" value="${escapeHtml(b.subtitle || '')}"></div>
+      </div>`;
+    }
+    if (b.type === 'text') {
+      return `<div class="block-card">${head}
+        <div class="field"><label>Text</label><textarea data-bi="${i}" data-bk="body" rows="4">${escapeHtml(b.body || '')}</textarea></div>
+        <div class="field"><label>Layout</label>
+          <select data-bi="${i}" data-bk="columns">
+            <option value="1" ${Number(b.columns) === 1 ? 'selected' : ''}>Single column</option>
+            <option value="2" ${Number(b.columns) === 2 ? 'selected' : ''}>Two columns</option>
+          </select>
+        </div>
+      </div>`;
+    }
+    const thumbs = (b.images || []).map((url, j) => `
+      <div class="block-thumb">
+        <img src="${url}">
+        <button type="button" class="bt-remove" data-bimg-del="${i}" data-j="${j}">✕</button>
+        <div class="bt-move">
+          <button type="button" data-bimg-mv="${i}" data-j="${j}" data-dir="-1" ${j === 0 ? 'disabled' : ''}>←</button>
+          <button type="button" data-bimg-mv="${i}" data-j="${j}" data-dir="1" ${j === (b.images || []).length - 1 ? 'disabled' : ''}>→</button>
+        </div>
+      </div>`).join('');
+    return `<div class="block-card">${head}
+      <div class="field"><label>Caption (optional, above the grid)</label><input data-bi="${i}" data-bk="caption" value="${escapeHtml(b.caption || '')}"></div>
+      <div class="block-images-grid">${thumbs || ''}</div>
+      <div class="field">
+        <input type="file" accept="image/*" multiple data-bimg-add="${i}">
+        <span class="hint">Select one or more images to add to this grid.</span>
+        <span class="hint" data-bimg-status="${i}"></span>
+      </div>
+      <div class="field"><label>Columns</label>
+        <select data-bi="${i}" data-bk="columns">
+          ${[1,2,3,4,5,6].map(n => `<option value="${n}" ${Number(b.columns) === n ? 'selected' : ''}>${n} across</option>`).join('')}
+        </select>
+      </div>
+    </div>`;
+  }).join('');
+
+  list.querySelectorAll('[data-bi]').forEach(el => {
+    el.addEventListener('input', () => {
+      const b = editingBlocks[Number(el.dataset.bi)];
+      const k = el.dataset.bk;
+      b[k] = (k === 'columns') ? Number(el.value) : el.value;
+    });
+  });
+  list.querySelectorAll('[data-mv]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = Number(btn.dataset.mv), j = i + Number(btn.dataset.dir);
+      if (j < 0 || j >= editingBlocks.length) return;
+      [editingBlocks[i], editingBlocks[j]] = [editingBlocks[j], editingBlocks[i]];
+      renderBlocks();
+    });
+  });
+  list.querySelectorAll('[data-del]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!confirm('Delete this section?')) return;
+      editingBlocks.splice(Number(btn.dataset.del), 1);
+      renderBlocks();
+    });
+  });
+  list.querySelectorAll('[data-bimg-del]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      editingBlocks[Number(btn.dataset.bimgDel)].images.splice(Number(btn.dataset.j), 1);
+      renderBlocks();
+    });
+  });
+  list.querySelectorAll('[data-bimg-mv]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const imgs = editingBlocks[Number(btn.dataset.bimgMv)].images;
+      const j = Number(btn.dataset.j), k = j + Number(btn.dataset.dir);
+      if (k < 0 || k >= imgs.length) return;
+      [imgs[j], imgs[k]] = [imgs[k], imgs[j]];
+      renderBlocks();
+    });
+  });
+  list.querySelectorAll('[data-bimg-add]').forEach(input => {
+    input.addEventListener('change', (e) => addBlockImages(e, Number(input.dataset.bimgAdd)));
+  });
+}
+
+async function addBlockImages(e, blockIdx) {
+  const files = [...e.target.files];
+  if (!files.length) return;
+  const statusEl = document.querySelector(`[data-bimg-status="${blockIdx}"]`);
+  if (statusEl) statusEl.textContent = `Uploading 0/${files.length}…`;
+  try {
+    for (let n = 0; n < files.length; n++) {
+      const url = await uploadFile(files[n], currentSlug, 'block');
+      editingBlocks[blockIdx].images.push(url);
+      if (statusEl) statusEl.textContent = `Uploading ${n + 1}/${files.length}…`;
+    }
+    renderBlocks();
+  } catch (err) {
+    if (statusEl) statusEl.textContent = 'Upload failed: ' + err.message;
+  } finally {
+    e.target.value = '';
+  }
+}
+
+function renderForm(p) {
+  editingGallery = [...(p.gallery_image_urls || [])];
+  editingBlocks = JSON.parse(JSON.stringify(p.content_blocks || []));
+  const main = document.getElementById('main');
+  main.innerHTML = `
+    <div class="form-section">
+      <div class="form-row">
+        <div class="field"><label>Project Name</label><input id="f-name" value="${escapeHtml(p.name)}"></div>
+        <div class="field"><label>Client</label><input id="f-client" value="${escapeHtml(p.client)}"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Year</label><input id="f-year" value="${escapeHtml(p.year)}"></div>
+        <div class="field"><label>Role</label><input id="f-role" value="${escapeHtml(p.role)}"></div>
+      </div>
+      <div class="field">
+        <label>Category (shown in meta row)</label>
+        <input id="f-category" value="${escapeHtml(p.category)}">
+      </div>
+      <div class="field">
+        <label>Tags (comma-separated, shown as pills)</label>
+        <input id="f-tags" value="${escapeHtml((p.tags || []).join(', '))}">
+      </div>
+      <div class="field">
+        <label>Section Label (small subtitle above the headline)</label>
+        <input id="f-section-label" value="${escapeHtml(p.section_label || 'Overview')}">
+        <span class="hint">Currently shows as "${escapeHtml((p.section_label || 'Overview').toUpperCase())}" on the live page.</span>
+      </div>
+      <div class="field">
+        <label>Statement (bold headline)</label>
+        <input id="f-statement" value="${escapeHtml(p.statement)}">
+      </div>
+      <div class="field">
+        <label>Overview</label>
+        <textarea id="f-overview" rows="4">${escapeHtml(p.overview)}</textarea>
+        <span class="hint">This replaces the dashed placeholder box on the live page.</span>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <label style="font-family:var(--display); font-weight:600; font-size:0.8rem; display:block; margin-bottom:0.9rem;">Layout &amp; Style</label>
+      <div class="form-row">
+        <div class="field">
+          <label>Card Color</label>
+          <select id="f-cover-class">
+            ${COVER_COLORS.map(c => `<option value="${c.v}" ${p.cover_class === c.v ? 'selected' : ''}>${c.label}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field">
+          <label>Card Pattern</label>
+          <select id="f-cover-pattern">
+            ${COVER_PATTERNS.map(c => `<option value="${c.v}" ${p.cover_pattern === c.v ? 'selected' : ''}>${c.label}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Outline Color</label>
+          <div style="display:flex; align-items:center; gap:0.6rem;">
+            <input type="color" id="f-accent-color" value="${escapeHtml(p.accent_color || '#A16207')}" style="width:52px; height:42px; padding:2px; cursor:pointer;">
+            <input type="text" id="f-accent-hex" value="${escapeHtml(p.accent_color || '#A16207')}" style="flex:1;">
+          </div>
+          <span class="hint">Frame border on the detail page &amp; hover color on the home page.</span>
+        </div>
+        <div class="field">
+          <label>Gallery Columns</label>
+          <select id="f-gallery-columns">
+            <option value="1" ${Number(p.gallery_columns) === 1 ? 'selected' : ''}>1 column (full width)</option>
+            <option value="2" ${Number(p.gallery_columns || 2) === 2 ? 'selected' : ''}>2 columns</option>
+            <option value="3" ${Number(p.gallery_columns) === 3 ? 'selected' : ''}>3 columns</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="field">
+        <label>Hero Image</label>
+        <div class="image-field">
+          <div class="image-preview" id="hero-preview">${p.hero_image_url ? `<img src="${p.hero_image_url}">` : 'No image'}</div>
+          <div class="image-actions">
+            <input type="file" id="hero-file" accept="image/*">
+            <span class="hint">Replaces the "+ Add hero image" placeholder.</span>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Gallery Images (any number)</label>
+        <div class="gallery-grid" id="galleryGrid"></div>
+        <input type="file" id="gallery-add-file" accept="image/*" multiple>
+        <span class="hint">Pick one or more images — they upload and appear right away.</span>
+        <span class="gallery-upload-status" id="galleryUploadStatus"></span>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <label style="font-family:var(--display); font-weight:600; font-size:0.8rem; display:block; margin-bottom:0.4rem;">Page Sections</label>
+      <span class="hint" style="display:block; margin-bottom:0.9rem;">Build the page like Adobe Portfolio — stack as many sections as you want, each with its own heading, text, or image grid.</span>
+      <div class="blocks-toolbar">
+        <button type="button" class="pill-btn" data-add-block="heading">+ Heading</button>
+        <button type="button" class="pill-btn" data-add-block="text">+ Text</button>
+        <button type="button" class="pill-btn" data-add-block="images">+ Image Grid</button>
+      </div>
+      <div id="blocksList"></div>
+    </div>
+
+    <div class="actions-row">
+      <button class="pill-btn primary" id="saveBtn">Save Changes</button>
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <span class="status" id="statusMsg"></span>
+        <button class="danger-btn" id="deleteBtn">Delete Project</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('saveBtn').addEventListener('click', () => saveProject(p.slug));
+  document.getElementById('deleteBtn').addEventListener('click', () => deleteProject(p.slug));
+
+  renderGalleryGrid();
+  document.getElementById('gallery-add-file').addEventListener('change', (e) => addGalleryImage(e, p.slug));
+
+  renderBlocks();
+  document.querySelectorAll('[data-add-block]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      editingBlocks.push(newBlock(btn.dataset.addBlock));
+      renderBlocks();
+    });
+  });
+
+  const colorPicker = document.getElementById('f-accent-color');
+  const colorHex = document.getElementById('f-accent-hex');
+  colorPicker.addEventListener('input', () => { colorHex.value = colorPicker.value; });
+  colorHex.addEventListener('input', () => {
+    if (/^#[0-9a-fA-F]{6}$/.test(colorHex.value.trim())) colorPicker.value = colorHex.value.trim();
+  });
+}
+
+function renderGalleryGrid() {
+  const grid = document.getElementById('galleryGrid');
+  if (!editingGallery.length) {
+    grid.innerHTML = '<div class="gallery-empty">No gallery images yet.</div>';
+    return;
+  }
+  grid.innerHTML = editingGallery.map((url, i) => `
+    <div class="gallery-thumb">
+      <img src="${url}">
+      <button type="button" class="remove-btn" data-idx="${i}" title="Remove">✕</button>
+      <div class="reorder-row">
+        <button type="button" class="move-btn" data-dir="-1" data-idx="${i}" ${i === 0 ? 'disabled' : ''} title="Move left">←</button>
+        <span class="order-num">${i + 1}</span>
+        <button type="button" class="move-btn" data-dir="1" data-idx="${i}" ${i === editingGallery.length - 1 ? 'disabled' : ''} title="Move right">→</button>
+      </div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      editingGallery.splice(Number(btn.dataset.idx), 1);
+      renderGalleryGrid();
+    });
+  });
+  grid.querySelectorAll('.move-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = Number(btn.dataset.idx);
+      const j = i + Number(btn.dataset.dir);
+      if (j < 0 || j >= editingGallery.length) return;
+      [editingGallery[i], editingGallery[j]] = [editingGallery[j], editingGallery[i]];
+      renderGalleryGrid();
+    });
+  });
+}
+
+async function uploadFile(file, slug, prefix) {
+  const ext = file.name.split('.').pop();
+  const path = `${slug}/${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}.${ext}`;
+  const { error } = await supabaseClient.storage.from('project-images').upload(path, file);
+  if (error) throw error;
+  return supabaseClient.storage.from('project-images').getPublicUrl(path).data.publicUrl;
+}
+
+async function addGalleryImage(e, slug) {
+  const files = [...e.target.files];
+  if (!files.length) return;
+  const statusEl = document.getElementById('galleryUploadStatus');
+  statusEl.textContent = `Uploading 0/${files.length}…`;
+  try {
+    for (let n = 0; n < files.length; n++) {
+      const url = await uploadFile(files[n], slug, 'gallery');
+      editingGallery.push(url);
+      statusEl.textContent = `Uploading ${n + 1}/${files.length}…`;
+    }
+    renderGalleryGrid();
+    statusEl.textContent = 'Added ✓ (click Save Changes to keep it)';
+  } catch (err) {
+    statusEl.textContent = 'Upload failed: ' + err.message;
+  } finally {
+    e.target.value = '';
+  }
+}
+
+async function uploadIfSelected(fileInputId, slug, pathSuffix) {
+  const input = document.getElementById(fileInputId);
+  const file = input.files[0];
+  if (!file) return null;
+  return uploadFile(file, slug, pathSuffix);
+}
+
+async function saveProject(slug) {
+  const statusMsg = document.getElementById('statusMsg');
+  const saveBtn = document.getElementById('saveBtn');
+  saveBtn.disabled = true;
+  statusMsg.textContent = 'Saving…';
+  statusMsg.className = 'status';
+
+  try {
+    const heroUrl = await uploadIfSelected('hero-file', slug, 'hero');
+
+    const updates = {
+      name: document.getElementById('f-name').value.trim(),
+      client: document.getElementById('f-client').value.trim(),
+      year: document.getElementById('f-year').value.trim(),
+      role: document.getElementById('f-role').value.trim(),
+      category: document.getElementById('f-category').value.trim(),
+      tags: document.getElementById('f-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+      statement: document.getElementById('f-statement').value.trim(),
+      overview: document.getElementById('f-overview').value.trim(),
+      section_label: document.getElementById('f-section-label').value.trim() || 'Overview',
+      cover_class: document.getElementById('f-cover-class').value,
+      cover_pattern: document.getElementById('f-cover-pattern').value,
+      accent_color: document.getElementById('f-accent-hex').value.trim() || '#A16207',
+      gallery_columns: Number(document.getElementById('f-gallery-columns').value),
+      gallery_image_urls: editingGallery,
+      content_blocks: editingBlocks,
+      updated_at: new Date().toISOString()
+    };
+    if (heroUrl) updates.hero_image_url = heroUrl;
+
+    const { data, error } = await supabaseClient.from('projects').update(updates).eq('slug', slug).select().single();
+    if (error) throw error;
+
+    const idx = projects.findIndex(p => p.slug === slug);
+    projects[idx] = data;
+    renderList();
+    renderForm(data);
+    document.getElementById('statusMsg').textContent = 'Saved ✓';
+    document.getElementById('statusMsg').className = 'status saved';
+  } catch (err) {
+    statusMsg.textContent = 'Error: ' + err.message;
+  } finally {
+    saveBtn.disabled = false;
+  }
+}
+
+async function deleteProject(slug) {
+  if (!confirm(`Delete "${slug}"? This cannot be undone.`)) return;
+  const { error } = await supabaseClient.from('projects').delete().eq('slug', slug);
+  if (error) { alert('Failed to delete: ' + error.message); return; }
+  projects = projects.filter(p => p.slug !== slug);
+  currentSlug = null;
+  renderList();
+  document.getElementById('main').innerHTML = '<p class="empty-state">Select a project on the left to edit it.</p>';
+}
+</script>
+</body>
+</html>

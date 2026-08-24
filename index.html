@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joohyun Kim — Graphic &amp; Visual Designer</title>
+<meta name="description" content="Joohyun Kim is a graphic and visual designer in New York working across brand identity, editorial, print, and digital.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600&family=Archivo:ital@1&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FBFAF7;
+  --surface: #F3F1EA;
+  --surface-2: #ECE9DF;
+  --ink: #171717;
+  --ink-soft: #55524A;
+  --muted: #8C8879;
+  --border: #E2DFD3;
+  --border-strong: #171717;
+  --accent: #A16207;
+  --accent-ink: #FBFAF7;
+  --dark: #23262E;
+  --dark-2: #2C303A;
+  --display: 'Space Grotesk', sans-serif;
+  --body: 'Archivo', sans-serif;
+  --script: 'Caveat', cursive;
+  --unit: 8px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
+  mix-blend-mode: multiply;
+}
+
+/* NAME-TAG CURSOR */
+.cursor-tag { display: none; }
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .cursor-tag {
+    display: flex; align-items: center;
+    position: fixed; z-index: 10000; top: 0; left: 0;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    pointer-events: none;
+    transform: translate(14px, 18px);
+    opacity: 0;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .cursor-tag.on { opacity: 1; }
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--unit);
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* NAV — floating pills */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem clamp(1.25rem, 4vw, 3rem);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%;
+  background: rgba(251,250,247,0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.6rem 0.7rem 0.6rem 1.1rem;
+}
+.nav-logo {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-links {
+  display: flex; gap: 0.4rem; list-style: none;
+}
+.nav-links a {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  min-height: 40px;
+  display: flex; align-items: center;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+}
+.nav-links a:hover { background: var(--surface-2); color: var(--ink); }
+.nav-status {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: var(--body); font-size: 0.75rem;
+  color: var(--ink-soft);
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #3F7D3F;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+@media (max-width: 720px) { .nav-status { display: none; } .nav-links a { padding: 0 0.6rem; font-size: 0.72rem; } }
+
+/* HERO */
+.hero {
+  padding-top: clamp(7.5rem, 15vw, 10rem);
+  padding-bottom: 3rem;
+  position: relative;
+}
+.hero-tag {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 0.75rem;
+  font-family: var(--script);
+  font-size: 1.6rem;
+  color: var(--accent);
+  transform: rotate(-2deg);
+  margin-bottom: 0.5rem;
+}
+.hero-tag svg { flex-shrink: 0; opacity: 0.6; }
+
+.hero-statement {
+  grid-column: 1 / 11;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5.4vw, 4.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.hero-statement .dim { color: var(--text-dim, var(--muted)); }
+.hero-statement .pill {
+  display: inline-flex;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0.05em 0.5em;
+  border-radius: 999px;
+  transform: rotate(-1deg);
+}
+
+.word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.3em);
+  filter: blur(4px);
+  transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1), filter 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.word.in { opacity: 1; transform: none; filter: blur(0); }
+@media (prefers-reduced-motion: reduce) {
+  .word { opacity: 1; transform: none; filter: none; transition: none; }
+}
+
+.hero-meta {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.hero-eyebrow {
+  font-family: var(--display); font-weight: 500;
+  font-size: 0.82rem; letter-spacing: 0.03em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.hero-actions { display: flex; gap: 0.75rem; }
+.btn {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-decoration: none;
+  text-align: center;
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--ink);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  min-height: 44px;
+  display: flex; align-items: center; justify-content: center;
+}
+.btn:hover { background: var(--ink); color: var(--bg); transform: translateY(-1px); }
+.btn-filled {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.btn-filled:hover { background: var(--ink); border-color: var(--ink); }
+
+.hero-stats {
+  grid-column: 1 / -1;
+  display: flex; gap: 0.75rem;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+.stat-pill {
+  display: flex; align-items: baseline; gap: 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  background: var(--surface);
+}
+.stat-num { font-family: var(--display); font-weight: 700; font-size: 1rem; }
+.stat-label { font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+
+@media (max-width: 800px) {
+  .hero-statement { grid-column: 1 / -1; }
+  .hero-meta { flex-direction: column; align-items: flex-start; }
+}
+
+/* SECTION BASE */
+section { padding: 5.5rem 0; }
+
+/* WORK — alternating framed showcase */
+#work { background: var(--bg); }
+
+.work-rows {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+}
+
+.work-row {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 3.5rem;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+.work-row:nth-child(even) { grid-template-columns: 1.15fr 1fr; }
+.work-row:nth-child(even) .work-row-text { order: 2; }
+.work-row:nth-child(even) .work-row-frame { order: 1; }
+
+.work-row-text { opacity: 0; transform: translateY(16px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.work-row-frame { opacity: 0; transform: translateY(16px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s; }
+.work-row.v .work-row-text, .work-row.v .work-row-frame { opacity: 1; transform: none; }
+
+.work-statement {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.work-meta {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.work-link {
+  display: inline-block;
+  margin-top: 1.25rem;
+  font-family: var(--display); font-weight: 500;
+  font-size: 0.82rem;
+  color: var(--ink);
+  border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.work-row:hover .work-link { color: var(--accent); border-color: var(--accent); }
+
+.work-frame {
+  position: relative;
+  border: 3px solid var(--bg);
+  border-radius: 26px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s, border-color 0.35s;
+}
+.work-row:hover .work-frame { transform: translateY(-6px) scale(1.015); box-shadow: 0 24px 48px rgba(23,23,23,0.16); }
+.work-row[data-slug="esu-farm"]:hover .work-frame { border-color: #55B83F; }
+.work-row[data-slug="summit-ct"]:hover .work-frame { border-color: #F04E23; }
+.work-row[data-slug="williams-lea-gs"]:hover .work-frame { border-color: var(--accent); }
+.work-row[data-slug="shaashop"]:hover .work-frame { border-color: #7B4FA8; }
+
+.cover-lines { background-image: repeating-linear-gradient(115deg, transparent, transparent 13px, rgba(0,0,0,0.08) 13px, rgba(0,0,0,0.08) 14px); }
+.cover-grid { background-image: radial-gradient(rgba(0,0,0,0.18) 1.5px, transparent 1.5px); background-size: 14px 14px; }
+.cover-split { background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.12) 50%); }
+
+.frame-badge {
+  position: absolute; top: 1rem; left: 1rem; z-index: 2;
+  display: flex; align-items: center; gap: 0.5rem;
+  background: rgba(251,250,247,0.92);
+  color: var(--ink);
+  font-family: var(--display); font-weight: 600; font-size: 0.75rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+}
+.frame-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+.sparkle {
+  position: absolute; z-index: 2;
+  color: var(--accent);
+  opacity: 0.85;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.sparkle.top { top: -14px; right: -14px; }
+.sparkle.bottom { bottom: -12px; left: -12px; }
+.work-row:hover .sparkle.top { transform: rotate(25deg) scale(1.15); }
+.work-row:hover .sparkle.bottom { transform: rotate(-20deg) scale(1.15); }
+
+@media (prefers-reduced-motion: reduce) {
+  .work-row-text, .work-row-frame { opacity: 1 !important; transform: none !important; }
+}
+
+@media (max-width: 800px) {
+  .work-row, .work-row:nth-child(even) { grid-template-columns: 1fr; }
+  .work-row:nth-child(even) .work-row-text, .work-row:nth-child(even) .work-row-frame { order: initial; }
+  .work-rows { gap: 3.5rem; }
+}
+
+/* covers tinted per project */
+.c1 { background-color: #2B3244; }
+.c2 { background-color: #B4623E; }
+.c3 { background-color: #D8CBB0; }
+.c4 { background-color: #5B6650; color: var(--bg); }
+.c5 { background-color: #5C7285; color: var(--bg); }
+.c6 { background-color: #B98072; }
+.c7 { background-color: #33312C; color: var(--bg); }
+.c8 { background-color: #C99A3C; }
+
+/* ABOUT */
+#about { background: var(--bg); }
+.about-heading {
+  grid-column: 1 / 6;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.about-heading .pill {
+  display: inline-flex;
+  background: var(--surface-2);
+  padding: 0.05em 0.4em;
+  border-radius: 999px;
+  font-style: normal;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+.about-body-col {
+  grid-column: 7 / -1;
+  display: flex; flex-direction: column; gap: 1.1rem;
+}
+.about-body { font-size: 0.95rem; line-height: 1.8; color: var(--ink-soft); }
+
+.capabilities {
+  grid-column: 1 / -1;
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.cap-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.5rem;
+  background: var(--surface);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.cap-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.cap-num {
+  font-family: var(--display); font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.cap-title {
+  font-family: var(--display); font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+.cap-desc { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.6; }
+
+.about-tools {
+  grid-column: 1 / -1;
+  margin-top: 2.5rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem;
+}
+.tools-label {
+  font-family: var(--display); font-weight: 500;
+  font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 0.5rem;
+}
+.tool-badge {
+  font-family: var(--display);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+.tool-badge:hover { border-color: var(--border-strong); color: var(--ink); }
+
+@media (max-width: 800px) {
+  .about-heading, .about-body-col { grid-column: 1 / -1; }
+  .about-body-col { margin-top: 2rem; }
+  .capabilities { grid-template-columns: 1fr; }
+}
+
+/* CONTACT */
+#contact { background: var(--surface); border-radius: 32px; margin: 1rem clamp(0.75rem, 3vw, 2rem); }
+.contact-heading {
+  grid-column: 1 / 7;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 3.5vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.contact-heading .pill {
+  display: inline-flex;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0.05em 0.45em;
+  border-radius: 999px;
+  transform: rotate(-1deg);
+}
+.contact-left { grid-column: 1 / 7; display: flex; flex-direction: column; gap: 1.5rem; }
+.contact-sub { font-size: 0.92rem; line-height: 1.7; color: var(--ink-soft); max-width: 34ch; }
+.contact-email-row { display: flex; align-items: center; gap: 0.85rem; }
+.contact-email {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 3px;
+  width: fit-content;
+  transition: color 0.2s;
+  background: none; border-left: none; border-right: none; border-top: none;
+  cursor: pointer;
+  font-family: var(--display);
+}
+.contact-email:hover { color: var(--accent); }
+.copy-hint {
+  font-family: var(--display); font-size: 0.72rem;
+  color: var(--muted);
+  opacity: 0; transition: opacity 0.2s;
+}
+.copy-hint.show { opacity: 1; }
+
+.contact-form { grid-column: 8 / -1; display: flex; flex-direction: column; gap: 1.5rem; }
+.field { display: flex; flex-direction: column; gap: 0.5rem; }
+.field label {
+  font-family: var(--display); font-weight: 500;
+  font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted);
+}
+.field input, .field textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.85rem 1.1rem;
+  font-family: var(--body); font-size: 1rem;
+  color: var(--ink);
+  outline: none;
+  resize: none;
+  transition: border-color 0.2s;
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--muted); }
+.field input:focus, .field textarea:focus { border-color: var(--border-strong); }
+.submit-btn {
+  align-self: flex-start;
+  font-family: var(--display); font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 0.85rem 2rem;
+  min-height: 44px;
+  transition: background 0.2s, color 0.2s;
+}
+.submit-btn:hover { background: var(--ink); border-color: var(--ink); }
+
+@media (max-width: 800px) {
+  .contact-heading, .contact-left, .contact-form { grid-column: 1 / -1; }
+  .contact-form { margin-top: 2.5rem; }
+}
+
+/* FOOTER */
+footer {
+  padding: 2.5rem clamp(1.25rem, 4vw, 3rem);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy { font-size: 0.8rem; color: var(--muted); }
+.footer-links { display: flex; gap: 0.5rem; }
+.footer-links a {
+  font-family: var(--display); font-size: 0.78rem;
+  color: var(--ink-soft); text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  transition: background 0.2s, color 0.2s;
+}
+.footer-links a:hover { background: var(--surface); color: var(--accent); }
+
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.reveal.v { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .work-row { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-tag" id="cursorTag">Joohyun</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" aria-label="Joohyun Kim home">JK</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-status">
+      <span class="status-dot" aria-hidden="true"></span>
+      Available for work
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero grid-12">
+  <p class="hero-tag" aria-hidden="true">
+    Hi, I'm Joohyun
+    <svg width="26" height="14" viewBox="0 0 26 14" fill="none"><path d="M1 10C4 2 8 2 11 8C14 14 18 4 25 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </p>
+  <h1 class="hero-statement" id="heroStatement"><span class="word">I</span> <span class="word">turn</span> <span class="word">brand</span> <span class="word">ideas</span> <span class="word">into</span> <span class="word pill">visual systems</span> <span class="word">people</span> <span class="word">actually</span> <span class="word dim">remember.</span></h1>
+
+  <div class="hero-meta">
+    <p class="hero-eyebrow">Graphic &amp; Visual Designer · New York, NY</p>
+    <div class="hero-actions">
+      <a href="https://joozoo.myportfolio.com" target="_blank" rel="noopener" class="btn btn-filled">Full Portfolio ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-pill"><span class="stat-num">4+</span><span class="stat-label">Projects</span></div>
+    <div class="stat-pill"><span class="stat-num">4+</span><span class="stat-label">Years Exp.</span></div>
+    <div class="stat-pill"><span class="stat-num">SAIC</span><span class="stat-label">Education</span></div>
+  </div>
+</header>
+
+<!-- WORK -->
+<section id="work">
+  <div class="grid-12">
+    <div class="work-rows">
+
+      <a href="work-esu-farm.html" class="work-row" data-name="ESU Farm" data-slug="esu-farm">
+        <div class="work-row-text">
+          <p class="work-statement" id="wr-statement-esu-farm">I led brand identity and marketing for ESU Farm.</p>
+          <p class="work-meta" id="wr-meta-esu-farm">2026 · Branding, Marketing</p>
+          <span class="work-link">View project →</span>
+        </div>
+        <div class="work-row-frame">
+          <div class="work-frame c4 cover-lines">
+            <span class="frame-badge" id="wr-badge-esu-farm"><span class="dot"></span>ESU Farm</span>
+            <svg class="sparkle top" width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
+            <svg class="sparkle bottom" width="20" height="20" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <a href="work-summit-ct.html" class="work-row" data-name="Summit C&amp;T" data-slug="summit-ct">
+        <div class="work-row-text">
+          <p class="work-statement" id="wr-statement-summit-ct">I designed CPG packaging systems for Summit C&amp;T.</p>
+          <p class="work-meta" id="wr-meta-summit-ct">2026 · CPG, Packaging</p>
+          <span class="work-link">View project →</span>
+        </div>
+        <div class="work-row-frame">
+          <div class="work-frame c8 cover-grid">
+            <span class="frame-badge" id="wr-badge-summit-ct"><span class="dot"></span>Summit C&amp;T</span>
+            <svg class="sparkle top" width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
+            <svg class="sparkle bottom" width="20" height="20" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <a href="work-williams-lea-gs.html" class="work-row" data-name="Williams Lea / GS" data-slug="williams-lea-gs">
+        <div class="work-row-text">
+          <p class="work-statement" id="wr-statement-williams-lea-gs">I created presentation design systems for Williams Lea and Goldman Sachs.</p>
+          <p class="work-meta" id="wr-meta-williams-lea-gs">2025 · Presentation Design</p>
+          <span class="work-link">View project →</span>
+        </div>
+        <div class="work-row-frame">
+          <div class="work-frame c1 cover-split">
+            <span class="frame-badge" id="wr-badge-williams-lea-gs"><span class="dot"></span>Williams Lea / GS</span>
+            <svg class="sparkle top" width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
+            <svg class="sparkle bottom" width="20" height="20" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <a href="work-shaashop.html" class="work-row" data-name="Shaashop" data-slug="shaashop">
+        <div class="work-row-text">
+          <p class="work-statement" id="wr-statement-shaashop">I designed the UI/UX and marketing assets for Shaashop.</p>
+          <p class="work-meta" id="wr-meta-shaashop">2021 · UI/UX, Marketing</p>
+          <span class="work-link">View project →</span>
+        </div>
+        <div class="work-row-frame">
+          <div class="work-frame c5 cover-lines">
+            <span class="frame-badge" id="wr-badge-shaashop"><span class="dot"></span>Shaashop</span>
+            <svg class="sparkle top" width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
+            <svg class="sparkle bottom" width="20" height="20" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="grid-12">
+    <h2 class="about-heading word-group"><span class="word">Design</span> <span class="word">is</span> <span class="word pill">precision</span> <span class="word">in</span> <span class="word">disguise.</span></h2>
+    <div class="about-body-col reveal">
+      <p class="about-body">Hi, I'm Joohyun Kim — a graphic and visual designer based in New York. I studied at the School of the Art Institute of Chicago, where I developed a rigorous eye for craft and concept.</p>
+      <p class="about-body">I've worked across agency, nonprofit, and cultural institutions — with organizations like Williams Lea, Harris Theater, SAIC, Esri, and Reingold — bringing visual clarity to complex communication challenges.</p>
+      <p class="about-body">My work spans brand identity, editorial design, print, and digital. Every project starts with listening and ends with something that couldn't have been made for anyone else.</p>
+    </div>
+
+    <div class="capabilities">
+      <div class="cap-card reveal">
+        <p class="cap-num">01</p>
+        <p class="cap-title">Brand Identity</p>
+        <p class="cap-desc">Logo, visual systems, typography, and packaging built around a clear idea of who you are.</p>
+      </div>
+      <div class="cap-card reveal">
+        <p class="cap-num">02</p>
+        <p class="cap-title">Editorial &amp; Print</p>
+        <p class="cap-desc">Layout, art direction, and illustration for publications, print collateral, and cultural institutions.</p>
+      </div>
+      <div class="cap-card reveal">
+        <p class="cap-num">03</p>
+        <p class="cap-title">Digital &amp; UI</p>
+        <p class="cap-desc">Visual design and motion for interfaces, data-driven products, and digital brand touchpoints.</p>
+      </div>
+    </div>
+
+    <div class="about-tools">
+      <span class="tools-label">Tools</span>
+      <span class="tool-badge">Figma</span>
+      <span class="tool-badge">Adobe Illustrator</span>
+      <span class="tool-badge">InDesign</span>
+      <span class="tool-badge">Photoshop</span>
+      <span class="tool-badge">After Effects</span>
+      <span class="tool-badge">Procreate</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="grid-12">
+    <div class="contact-left reveal">
+      <h2 class="contact-heading">Let's build something <span class="pill">real.</span></h2>
+      <p class="contact-sub">Open to freelance projects, full-time roles, and conversations worth having. If you have something interesting, let's talk.</p>
+      <div class="contact-email-row">
+        <button type="button" class="contact-email" id="copyEmail" data-email="joo2hyun@gmail.com">joo2hyun@gmail.com</button>
+        <span class="copy-hint" id="copyHint">Copied ✓</span>
+      </div>
+    </div>
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="field">
+        <label for="msg">Message</label>
+        <textarea id="msg" name="msg" rows="5" placeholder="Tell me about your project…" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2024 Joohyun Kim. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="https://joozoo.myportfolio.com" target="_blank" rel="noopener">Portfolio ↗</a>
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script>
+(async function loadWorkCards() {
+  try {
+    const { data: projects, error } = await supabaseClient.from('projects').select('*').order('sort_order');
+    if (error || !projects) return;
+    projects.forEach(p => {
+      const statementEl = document.getElementById('wr-statement-' + p.slug);
+      const metaEl = document.getElementById('wr-meta-' + p.slug);
+      const badgeEl = document.getElementById('wr-badge-' + p.slug);
+      const rowEl = document.querySelector('.work-row[data-slug="' + p.slug + '"]');
+      if (statementEl && p.statement) statementEl.textContent = p.statement;
+      if (metaEl && p.year) metaEl.textContent = p.year + ' · ' + p.category;
+      if (badgeEl && p.name) badgeEl.innerHTML = '<span class="dot"></span>' + p.name;
+      if (rowEl && p.name) rowEl.dataset.name = p.name;
+
+      const frameEl = rowEl ? rowEl.querySelector('.work-frame') : null;
+      if (frameEl) {
+        if (p.cover_class || p.cover_pattern) {
+          frameEl.className = 'work-frame ' + (p.cover_class || '') + ' ' + (p.cover_pattern || '');
+        }
+        if (p.accent_color) {
+          rowEl.addEventListener('mouseenter', () => { frameEl.style.borderColor = p.accent_color; });
+          rowEl.addEventListener('mouseleave', () => { frameEl.style.borderColor = ''; });
+        }
+      }
+    });
+  } catch (e) {
+    // Supabase not configured yet — keep static content.
+  }
+})();
+
+const heroWords = document.querySelectorAll('#heroStatement .word');
+heroWords.forEach((w, i) => {
+  setTimeout(() => w.classList.add('in'), 120 + i * 60);
+});
+
+const tag = document.getElementById('cursorTag');
+if (tag) {
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    tag.style.left = mx + 'px';
+    tag.style.top = my + 'px';
+    tag.classList.add('on');
+  });
+  document.addEventListener('mouseleave', () => tag.classList.remove('on'));
+
+  document.querySelectorAll('.work-row[data-name]').forEach(row => {
+    row.addEventListener('mouseenter', () => { tag.textContent = row.dataset.name; });
+    row.addEventListener('mouseleave', () => { tag.textContent = 'Joohyun'; });
+  });
+}
+
+const reveals = document.querySelectorAll('.reveal, .work-row, .word-group');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      if (e.target.classList.contains('word-group')) {
+        const words = e.target.querySelectorAll('.word');
+        words.forEach((w, wi) => setTimeout(() => w.classList.add('in'), wi * 60));
+      } else {
+        setTimeout(() => e.target.classList.add('v'), (i % 8) * 60);
+      }
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => obs.observe(el));
+
+const copyBtn = document.getElementById('copyEmail');
+const copyHint = document.getElementById('copyHint');
+if (copyBtn) {
+  copyBtn.addEventListener('click', async () => {
+    const email = copyBtn.dataset.email;
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch (err) {
+      window.location.href = 'mailto:' + email;
+      return;
+    }
+    copyHint.textContent = 'Copied ✓';
+    copyHint.classList.add('show');
+    setTimeout(() => copyHint.classList.remove('show'), 1800);
+  });
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.submit-btn');
+  const original = btn.textContent;
+  btn.textContent = 'Sent ✓';
+  btn.style.background = '#3F7D3F';
+  btn.style.borderColor = '#3F7D3F';
+  setTimeout(() => {
+    btn.textContent = original;
+    btn.style.background = '';
+    btn.style.borderColor = '';
+    e.target.reset();
+  }, 3000);
+}
+</script>
+</body>
+</html>
