@@ -293,8 +293,8 @@ let editingBlocks = [];
 function newBlock(type) {
   const id = 'b' + Date.now() + Math.random().toString(36).slice(2, 6);
   if (type === 'heading') return { id, type, heading: '', subtitle: '' };
-  if (type === 'text') return { id, type, body: '', columns: 1 };
-  return { id, type: 'images', images: [], columns: 3, caption: '' };
+  if (type === 'text') return { id, type, title: '', sublabel: '', body: '', columns: 1 };
+  return { id, type: 'images', title: '', sublabel: '', images: [], columns: 1, caption: '' };
 }
 
 function renderBlocks() {
@@ -322,6 +322,8 @@ function renderBlocks() {
     }
     if (b.type === 'text') {
       return `<div class="block-card">${head}
+        <div class="field"><label>Section title (left rail)</label><input data-bi="${i}" data-bk="title" value="${escapeHtml(b.title || '')}"></div>
+        <div class="field"><label>Small label under title</label><input data-bi="${i}" data-bk="sublabel" value="${escapeHtml(b.sublabel || '')}" placeholder="01 — Web"></div>
         <div class="field"><label>Text</label><textarea data-bi="${i}" data-bk="body" rows="4">${escapeHtml(b.body || '')}</textarea></div>
         <div class="field"><label>Layout</label>
           <select data-bi="${i}" data-bk="columns">
@@ -341,7 +343,9 @@ function renderBlocks() {
         </div>
       </div>`).join('');
     return `<div class="block-card">${head}
-      <div class="field"><label>Caption (optional, above the grid)</label><input data-bi="${i}" data-bk="caption" value="${escapeHtml(b.caption || '')}"></div>
+      <div class="field"><label>Section title (left rail)</label><input data-bi="${i}" data-bk="title" value="${escapeHtml(b.title || '')}" placeholder="Main landing page"></div>
+      <div class="field"><label>Small label under title</label><input data-bi="${i}" data-bk="sublabel" value="${escapeHtml(b.sublabel || '')}" placeholder="01 — Web"></div>
+      <div class="field"><label>Caption (below the images)</label><input data-bi="${i}" data-bk="caption" value="${escapeHtml(b.caption || '')}"></div>
       <div class="block-images-grid">${thumbs || ''}</div>
       <div class="field">
         <input type="file" accept="image/*" multiple data-bimg-add="${i}">
@@ -443,6 +447,10 @@ function renderForm(p) {
         <label>Section Label (small subtitle above the headline)</label>
         <input id="f-section-label" value="${escapeHtml(p.section_label || 'Overview')}">
         <span class="hint">Currently shows as "${escapeHtml((p.section_label || 'Overview').toUpperCase())}" on the live page.</span>
+      </div>
+      <div class="field">
+        <label>Description (paragraph under the big title)</label>
+        <textarea id="f-description" rows="3">${escapeHtml(p.description || '')}</textarea>
       </div>
       <div class="field">
         <label>Statement (bold headline)</label>
@@ -639,6 +647,7 @@ async function saveProject(slug) {
       role: document.getElementById('f-role').value.trim(),
       category: document.getElementById('f-category').value.trim(),
       tags: document.getElementById('f-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+      description: document.getElementById('f-description').value.trim(),
       statement: document.getElementById('f-statement').value.trim(),
       overview: document.getElementById('f-overview').value.trim(),
       section_label: document.getElementById('f-section-label').value.trim() || 'Overview',
