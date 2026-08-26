@@ -227,6 +227,33 @@ nav {
 }
 .gallery-slot span { font-family: var(--display); font-weight: 500; font-size: 0.8rem; }
 
+/* HANDOFF — section link, mascot row, video */
+.row-link {
+  font-size: 0.8rem; color: var(--accent); text-decoration: none;
+  margin-top: 5px; display: inline-block; word-break: break-all;
+}
+.row-link:hover { color: #8c491a; text-decoration: underline; }
+
+.mascot-row {
+  display: flex; align-items: flex-end; gap: 2.5rem; flex-wrap: wrap;
+}
+.mascot-mark {
+  width: 200px; height: 200px; border-radius: 50%;
+  object-fit: cover; display: block; flex-shrink: 0;
+}
+.mascot-full { height: 230px; width: auto; display: block; }
+
+.video-frame {
+  width: 100%; border-radius: 16px; display: block;
+  background: #2e2b25; aspect-ratio: 16 / 9;
+}
+
+@media (max-width: 820px) {
+  .mascot-row { gap: 1.25rem; }
+  .mascot-mark { width: 120px; height: 120px; }
+  .mascot-full { height: 150px; }
+}
+
 /* NEXT PROJECT */
 .next-project {
   max-width: var(--maxw); margin: 2rem auto 0;
@@ -306,34 +333,60 @@ footer {
     <div>
       <div class="detail-tags" id="dt-tags"></div>
       <h1 class="detail-title" id="dt-title">Shaashop</h1>
-      <p class="detail-desc" id="dt-desc"></p>
+      <p class="detail-desc" id="dt-desc">Design for a global e-commerce platform built around cross-border buying — landing pages, banners, posters, and the deck template behind its IR pitches.</p>
     </div>
     <dl class="meta-list">
       <div><dt class="meta-label">Year</dt><dd class="meta-value" id="dt-year">2021</dd></div>
       <div><dt class="meta-label">Client</dt><dd class="meta-value" id="dt-client">Shaashop</dd></div>
       <div><dt class="meta-label">Category</dt><dd class="meta-value" id="dt-category">UI/UX, Marketing</dd></div>
-      <div><dt class="meta-label">Role</dt><dd class="meta-value" id="dt-role">Design</dd></div>
+      <div><dt class="meta-label">Role</dt><dd class="meta-value" id="dt-role">Graphic Designer, Marketing Specialist</dd></div>
     </dl>
   </div>
 </header>
 
 <div class="hero-wrap reveal" id="dt-hero-wrap">
-  <div class="hero-ph c5 cover-lines" id="dt-hero-frame">
-    <span class="frame-badge" id="dt-hero-badge"><span class="dot"></span>Shaashop</span>
-    <span class="hero-hint">+ Add hero image</span>
-  </div>
+  <img class="hero-img" src="assets/shaashop/Shaashop-01.jpg" alt="Shaajumi, the Shaashop mascot">
 </div>
 
 <section class="row reveal">
   <div><h2 class="row-label" id="dt-section-label">Overview</h2></div>
   <div class="row-body">
     <p class="sec-statement" id="dt-statement">I designed the UI/UX and marketing assets for Shaashop, a B2C e-commerce brand.</p>
-    <p class="sec-placeholder" id="dt-overview">Add a short project overview here — the brief, the goal, and who it was for.</p>
+    <p class="sec-overview" id="dt-overview">At SHAASHOP, a global e-commerce platform facilitating cross-border product purchases, I spearheaded the design of various assets, including landing pages, banners, posters, and templates essential for business presentations, specifically for Investor Relations (IR) pitches. My responsibilities also involved conducting extensive research on e-commerce trends and consumer behaviors, providing valuable insights for platform enhancement. Additionally, I conducted A/B tests for Facebook Ads, optimizing strategies to maximize their effectiveness and reach within the target audience.</p>
     <div class="gallery" id="dt-gallery" style="margin-top:2rem"></div>
   </div>
 </section>
 
-<div id="dt-blocks"></div>
+<div id="dt-blocks">
+<section class="row reveal">
+  <div><h2 class="row-label">Main landing page</h2><a class="row-link" href="https://shaa.shop/global-main" target="_blank" rel="noreferrer">shaa.shop/global-main</a></div>
+  <div class="row-body"><img src="assets/shaashop/Shaashop-02.jpg" alt="Shaashop main landing page layouts" loading="lazy" style="width:100%;border-radius:16px;display:block"><p class="pb-caption">“드립니다, 한국의 모든 것을” (We deliver everything from Korea) — the service's main landing page: hero, section system and footer, all cut from one grid.</p></div>
+</section>
+<section class="row reveal">
+  <div><h2 class="row-label">Campaign landing page</h2><a class="row-link" href="https://shaa.shop/global-onlyforu" target="_blank" rel="noreferrer">shaa.shop/global-onlyforu</a></div>
+  <div class="row-body"><img src="assets/shaashop/Shaashop-03.jpg" alt="Shaashop campaign landing page" loading="lazy" style="width:100%;border-radius:16px;display:block"><p class="pb-caption">A second landing page built for paid campaigns — one headline, the app in hand, both store badges, tuned per ad set.</p></div>
+</section>
+<section class="row reveal">
+  <div><h2 class="row-label">App screens</h2></div>
+  <div class="row-body"><img src="assets/shaashop/Shaashop-04.jpg" alt="Splash, loading and in-app banner screens" loading="lazy" style="width:100%;border-radius:16px;display:block"><p class="pb-caption">Splash, loading and the in-app banner set — plus the how-to-use cards that onboard new members.</p></div>
+</section>
+<section class="row reveal">
+  <div><h2 class="row-label">Mascot design</h2></div>
+  <div class="row-body"><div class="mascot-row"><img class="mascot-mark" src="assets/shaashop/shaajumi-profile-01.png" alt="Shaajumi profile mark, light version" loading="lazy"><img class="mascot-mark" src="assets/shaashop/shaajumi-profile-02.png" alt="Shaajumi profile mark, sky-blue version" loading="lazy"><img class="mascot-full" src="assets/shaashop/shaajumi-character.png" alt="Shaajumi full-body mascot" loading="lazy"></div><p class="pb-caption">Shaajumi, the Shaashop mascot, drawn inside the logo as the brand's social profile picture — a light version and a sky-blue one.</p></div>
+</section>
+<section class="row reveal">
+  <div><h2 class="row-label">Shaajumi &amp; social</h2><a class="row-link" href="https://www.instagram.com/shaashop_global/" target="_blank" rel="noreferrer">@shaashop_global</a></div>
+  <div class="row-body"><img src="assets/shaashop/Shaashop-05.jpg" alt="Shaashop Instagram card series" loading="lazy" style="width:100%;border-radius:16px;display:block"><p class="pb-caption">The mascot carries the Instagram feed: a quiz-format card series that explains the service in the character's own voice.</p></div>
+</section>
+<section class="row reveal">
+  <div><h2 class="row-label">Facebook A/B tests</h2></div>
+  <div class="row-body"><div class="pb-grid multi" style="grid-template-columns:repeat(2,1fr);gap:20px"><img src="assets/shaashop/fb-ad-story.jpg" alt="Facebook ad, 9:16 story placement" loading="lazy"><img src="assets/shaashop/fb-ad-square.jpg" alt="Facebook ad, 1:1 feed placement" loading="lazy"><img src="assets/shaashop/fb-ad-usd.jpg" alt="Facebook ad, USD price framing" loading="lazy"><img src="assets/shaashop/fb-ad-jpy.jpg" alt="Facebook ad, JPY price framing" loading="lazy"></div><p class="pb-caption">Two test cells, one variable each: placement ratio (9:16 story vs. 1:1 feed) and localized price framing (USD vs. JPY). Creative was held constant within each cell so results could be read against cost per acquisition, and the winning variant carried the next flight's budget.</p></div>
+</section>
+<section class="row reveal">
+  <div><h2 class="row-label">YouTube ad</h2></div>
+  <div class="row-body"><video class="video-frame" controls playsinline preload="metadata"><source src="assets/shaashop/youtube-ad.mp4" type="video/mp4"></video><p class="pb-caption">Shaashop's first YouTube spot — the same story-format creative cut for pre-roll.</p></div>
+</section>
+</div>
 
 <a href="work-esu-farm.html" class="next-project">
   <div>
@@ -372,6 +425,7 @@ function imageGrid(images, columns) {
 function renderContentBlocks(blocks) {
   const wrap = document.getElementById('dt-blocks');
   if (!wrap) return;
+  if (!blocks.length) return;   // keep the page's built-in sections
   wrap.innerHTML = blocks.map(b => {
     const label = (b.title || b.heading)
       ? '<div><h2 class="row-label">' + esc(b.title || b.heading) + '</h2>'
@@ -433,8 +487,6 @@ function renderContentBlocks(blocks) {
     if (p.gallery_image_urls && p.gallery_image_urls.length) {
       galleryEl.style.gridTemplateColumns = 'repeat(' + (Number(p.gallery_columns) || 2) + ', 1fr)';
       galleryEl.innerHTML = p.gallery_image_urls.map(u => '<img src="' + esc(u) + '" alt="" loading="lazy">').join('');
-    } else {
-      galleryEl.innerHTML = '';
     }
 
     renderContentBlocks(p.content_blocks || []);

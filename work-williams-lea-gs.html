@@ -372,6 +372,7 @@ function imageGrid(images, columns) {
 function renderContentBlocks(blocks) {
   const wrap = document.getElementById('dt-blocks');
   if (!wrap) return;
+  if (!blocks.length) return;   // keep the page's built-in sections
   wrap.innerHTML = blocks.map(b => {
     const label = (b.title || b.heading)
       ? '<div><h2 class="row-label">' + esc(b.title || b.heading) + '</h2>'
@@ -433,8 +434,6 @@ function renderContentBlocks(blocks) {
     if (p.gallery_image_urls && p.gallery_image_urls.length) {
       galleryEl.style.gridTemplateColumns = 'repeat(' + (Number(p.gallery_columns) || 2) + ', 1fr)';
       galleryEl.innerHTML = p.gallery_image_urls.map(u => '<img src="' + esc(u) + '" alt="" loading="lazy">').join('');
-    } else {
-      galleryEl.innerHTML = '';
     }
 
     renderContentBlocks(p.content_blocks || []);
