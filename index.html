@@ -248,6 +248,18 @@ nav {
   background: var(--surface);
 }
 .stat-num { font-family: var(--display); font-weight: 700; font-size: 1rem; }
+.edu-pill {
+  display: flex; flex-direction: column; gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 0.5rem 1.1rem;
+  background: var(--surface);
+}
+.edu-school {
+  font-family: var(--display); font-weight: 700; font-size: 0.9rem;
+  line-height: 1.25;
+}
+.edu-degree { font-size: 0.76rem; color: var(--muted); line-height: 1.3; }
 .stat-label { font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
 
 @media (max-width: 800px) {
@@ -341,6 +353,10 @@ section { padding: 5.5rem 0; }
   border-radius: 999px;
 }
 .frame-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.work-row[data-slug="esu-farm"] .frame-badge .dot { background: #55B83F; }
+.work-row[data-slug="summit-ct"] .frame-badge .dot { background: #F04E23; }
+.work-row[data-slug="williams-lea-gs"] .frame-badge .dot { background: #A16207; }
+.work-row[data-slug="shaashop"] .frame-badge .dot { background: #7B4FA8; }
 
 .sparkle {
   position: absolute; z-index: 2;
@@ -605,14 +621,17 @@ footer {
   <div class="hero-meta">
     <p class="hero-eyebrow">Graphic &amp; Visual Designer · New York, NY</p>
     <div class="hero-actions">
-      <a href="https://joozoo.myportfolio.com" target="_blank" rel="noopener" class="btn btn-filled">Full Portfolio ↗</a>
+      <a href="assets/joohyun-kim-resume.pdf" target="_blank" rel="noopener" class="btn btn-filled">Resume ↗</a>
     </div>
   </div>
 
   <div class="hero-stats">
     <div class="stat-pill"><span class="stat-num">4+</span><span class="stat-label">Projects</span></div>
     <div class="stat-pill"><span class="stat-num">4+</span><span class="stat-label">Years Exp.</span></div>
-    <div class="stat-pill"><span class="stat-num">SAIC</span><span class="stat-label">Education</span></div>
+    <div class="edu-pill">
+      <span class="edu-school">School of the Art Institute of Chicago</span>
+      <span class="edu-degree">Bachelor of Fine Arts, Visual Communication Design</span>
+    </div>
   </div>
 </header>
 
