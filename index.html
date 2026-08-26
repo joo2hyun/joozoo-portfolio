@@ -766,7 +766,9 @@ footer {
         <span class="copy-hint" id="copyHint">Copied ✓</span>
       </div>
     </div>
-    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+    <form class="contact-form reveal" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
+      <input type="hidden" name="form-name" value="contact">
+      <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
       <div class="field">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" placeholder="Your name" required>
@@ -894,19 +896,39 @@ if (copyBtn) {
   });
 }
 
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('.submit-btn');
+  const form = e.target;
+  const btn = form.querySelector('.submit-btn');
   const original = btn.textContent;
-  btn.textContent = 'Sent ✓';
-  btn.style.background = '#3F7D3F';
-  btn.style.borderColor = '#3F7D3F';
-  setTimeout(() => {
-    btn.textContent = original;
-    btn.style.background = '';
-    btn.style.borderColor = '';
-    e.target.reset();
-  }, 3000);
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    });
+    if (!res.ok) throw new Error('Request failed: ' + res.status);
+
+    btn.textContent = 'Sent ✓';
+    btn.style.background = '#3F7D3F';
+    btn.style.borderColor = '#3F7D3F';
+    form.reset();
+  } catch (err) {
+    btn.textContent = 'Failed — email me instead';
+    btn.style.background = '#B4262A';
+    btn.style.borderColor = '#B4262A';
+  } finally {
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = original;
+      btn.style.background = '';
+      btn.style.borderColor = '';
+    }, 4000);
+  }
 }
 </script>
 </body>
