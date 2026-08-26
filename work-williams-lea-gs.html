@@ -153,6 +153,7 @@ nav {
 /* HERO */
 .hero-wrap { max-width: var(--maxw); margin: 0 auto 4rem; padding: 0 var(--pad); }
 .hero-img { width: 100%; border-radius: 20px; display: block; }
+.hero-crop { aspect-ratio: 16 / 9; object-fit: cover; object-position: center 42%; }
 .hero-ph {
   border-radius: 20px; overflow: hidden; position: relative;
   aspect-ratio: 16 / 9;
@@ -212,7 +213,9 @@ nav {
 .pb-grid.multi img { height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
 .pb-caption {
   font-size: 0.92rem; color: var(--muted);
-  margin-top: 0.9rem; max-width: 60ch; line-height: 1.6;
+  margin-top: 0.9rem; line-height: 1.6;
+  max-width: none;        /* run the full width of the image above it */
+  text-wrap: pretty;      /* avoid a lone word on the last line */
 }
 .pb-text { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); white-space: pre-wrap; }
 .pb-text.cols2 { column-count: 2; column-gap: 3rem; }
@@ -306,34 +309,52 @@ footer {
     <div>
       <div class="detail-tags" id="dt-tags"></div>
       <h1 class="detail-title" id="dt-title">Williams Lea / GS</h1>
-      <p class="detail-desc" id="dt-desc"></p>
+      <p class="detail-desc" id="dt-desc">Presentation design on the Goldman Sachs account — pitchbook templates, cover and section systems, and an infographic library built to survive the deal desk.</p>
     </div>
     <dl class="meta-list">
-      <div><dt class="meta-label">Year</dt><dd class="meta-value" id="dt-year">2025</dd></div>
-      <div><dt class="meta-label">Client</dt><dd class="meta-value" id="dt-client">Williams Lea / GS</dd></div>
-      <div><dt class="meta-label">Category</dt><dd class="meta-value" id="dt-category">Presentation Design</dd></div>
-      <div><dt class="meta-label">Role</dt><dd class="meta-value" id="dt-role">Design</dd></div>
+      <div><dt class="meta-label">Year</dt><dd class="meta-value" id="dt-year">2023 — 2024</dd></div>
+      <div><dt class="meta-label">Client</dt><dd class="meta-value" id="dt-client">Williams Lea / Goldman Sachs</dd></div>
+      <div><dt class="meta-label">Category</dt><dd class="meta-value" id="dt-category">Presentation Design, Brand Systems</dd></div>
+      <div><dt class="meta-label">Role</dt><dd class="meta-value" id="dt-role">Presentation Designer</dd></div>
     </dl>
   </div>
 </header>
 
 <div class="hero-wrap reveal" id="dt-hero-wrap">
-  <div class="hero-ph c1 cover-split" id="dt-hero-frame">
-    <span class="frame-badge" id="dt-hero-badge"><span class="dot"></span>Williams Lea / GS</span>
-    <span class="hero-hint">+ Add hero image</span>
-  </div>
+  <img class="hero-img hero-crop" src="assets/williams-lea/hero-boardroom.jpg" alt="Goldman Sachs deck cover on a boardroom screen">
 </div>
 
 <section class="row reveal">
   <div><h2 class="row-label" id="dt-section-label">Overview</h2></div>
   <div class="row-body">
-    <p class="sec-statement" id="dt-statement">I created presentation design systems for Williams Lea and Goldman Sachs.</p>
-    <p class="sec-placeholder" id="dt-overview">Add a short project overview here — the brief, the goal, and who it was for.</p>
+    <p class="sec-statement" id="dt-statement">I designed pitch materials for Goldman Sachs deal teams, one client brand at a time.</p>
+    <p class="sec-overview" id="dt-overview">At Williams Lea I worked on the Goldman Sachs account, building the presentation materials its bankers take into the room: full 16:9 PowerPoint template systems, cover and section-page suites, data and process infographics, and reusable asset libraries. Each deck had to speak in the client company's brand voice while holding to the bank's own typographic and layout discipline — and stay editable by people working against a deadline, in PowerPoint, at 2am.</p>
     <div class="gallery" id="dt-gallery" style="margin-top:2rem"></div>
   </div>
 </section>
 
-<div id="dt-blocks"></div>
+<div id="dt-blocks">
+<section class="row reveal">
+  <div><h2 class="row-label">Template system</h2><span class="row-sub">01 — Goldman Sachs × Starbucks</span></div>
+  <div class="row-body"><img src="assets/williams-lea/template-system-gs.jpg" alt="Template system — Williams Lea / Goldman Sachs" loading="lazy" style="width:100%;border-radius:16px;display:block"><p class="pb-caption">A fourteen-layout master for a Starbucks engagement: cover, one- two- and four-content layouts, team and process infographics, a timeline, chart pages and line-drawn section dividers — all on a single green and sand palette.</p></div>
+</section>
+<section class="row reveal">
+  <div><h2 class="row-label">Cover &amp; section pages</h2><span class="row-sub">02 — Rippling, Dialpad</span></div>
+  <div class="row-body"><img src="assets/williams-lea/cover-section-pages.jpg" alt="Cover &amp; section pages — Williams Lea / Goldman Sachs" loading="lazy" style="width:100%;border-radius:16px;display:block"><p class="pb-caption">Three cover-and-divider directions for the same discussion materials — a 3D-rendered maroon set, a product-UI set and a gradient set — so a deal team can pick the register that fits the counterparty.</p></div>
+</section>
+<section class="row reveal">
+  <div><h2 class="row-label">Hospitality deck</h2><span class="row-sub">03 — The h.wood Group</span></div>
+  <div class="row-body"><img src="assets/williams-lea/hospitality-deck.jpg" alt="Hospitality deck — Williams Lea / Goldman Sachs" loading="lazy" style="width:100%;border-radius:16px;display:block"><p class="pb-caption">A darker, warmer system for a hospitality group: charcoal and blush frames, serif display headings, photography given a bordered plate — nineteen layouts from agenda to infographic to closing quote.</p></div>
+</section>
+<section class="row reveal">
+  <div><h2 class="row-label">Sell-side story</h2><span class="row-sub">04 — Once Upon a Farm</span></div>
+  <div class="row-body"><img src="assets/williams-lea/sellside-story.jpg" alt="Sell-side story — Williams Lea / Goldman Sachs" loading="lazy" style="width:100%;border-radius:16px;display:block"><p class="pb-caption">Cover and content pages for a consumer-brand engagement, built inside the client's own illustrated world — pouch photography, hand-drawn produce and a rolling green horizon carried across every layout.</p></div>
+</section>
+<section class="row reveal">
+  <div><h2 class="row-label">Infographic library</h2><span class="row-sub">05 — Reusable assets</span></div>
+  <div class="row-body"><img src="assets/williams-lea/infographic-library.jpg" alt="Infographic library — Williams Lea / Goldman Sachs" loading="lazy" style="width:100%;border-radius:16px;display:block"><p class="pb-caption">Twenty-one recolourable infographic assets — layer stacks, process rings, chevron ladders, roadmaps, funnels — drawn as native PowerPoint shapes so any banker could restyle them to a client palette without a designer.</p></div>
+</section>
+</div>
 
 <a href="work-shaashop.html" class="next-project">
   <div>

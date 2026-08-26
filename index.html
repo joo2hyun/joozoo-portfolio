@@ -307,6 +307,12 @@ section { padding: 5.5rem 0; }
 }
 .work-row:hover .work-link { color: var(--accent); border-color: var(--accent); }
 
+.work-cover-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block; z-index: 0;
+}
+.work-frame > .frame-badge, .work-frame > .sparkle { z-index: 2; }
+
 .work-frame {
   position: relative;
   border: 3px solid var(--bg);
@@ -642,7 +648,7 @@ footer {
         </div>
         <div class="work-row-frame">
           <div class="work-frame c1 cover-split">
-            <span class="frame-badge" id="wr-badge-williams-lea-gs"><span class="dot"></span>Williams Lea / GS</span>
+            <img class="work-cover-img" src="assets/williams-lea/hero-boardroom.jpg" alt="Williams Lea / GS" loading="lazy"><span class="frame-badge" id="wr-badge-williams-lea-gs"><span class="dot"></span>Williams Lea / GS</span>
             <svg class="sparkle top" width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
             <svg class="sparkle bottom" width="20" height="20" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
           </div>
@@ -657,7 +663,7 @@ footer {
         </div>
         <div class="work-row-frame">
           <div class="work-frame c5 cover-lines">
-            <span class="frame-badge" id="wr-badge-shaashop"><span class="dot"></span>Shaashop</span>
+            <img class="work-cover-img" src="assets/shaashop/Shaashop-01.jpg" alt="Shaashop" loading="lazy"><span class="frame-badge" id="wr-badge-shaashop"><span class="dot"></span>Shaashop</span>
             <svg class="sparkle top" width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
             <svg class="sparkle bottom" width="20" height="20" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
           </div>
@@ -762,6 +768,18 @@ footer {
       if (statementEl && p.statement) statementEl.textContent = p.statement;
       if (metaEl && p.year) metaEl.textContent = p.year + ' · ' + p.category;
       if (badgeEl && p.name) badgeEl.innerHTML = '<span class="dot"></span>' + p.name;
+      if (p.hero_image_url && rowEl) {
+        const frame = rowEl.querySelector('.work-frame');
+        let cover = frame.querySelector('.work-cover-img');
+        if (!cover) {
+          cover = document.createElement('img');
+          cover.className = 'work-cover-img';
+          cover.loading = 'lazy';
+          cover.alt = p.name || '';
+          frame.prepend(cover);
+        }
+        cover.src = p.hero_image_url;
+      }
       if (rowEl && p.name) rowEl.dataset.name = p.name;
 
       const frameEl = rowEl ? rowEl.querySelector('.work-frame') : null;

@@ -212,7 +212,9 @@ nav {
 .pb-grid.multi img { height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
 .pb-caption {
   font-size: 0.92rem; color: var(--muted);
-  margin-top: 0.9rem; max-width: 60ch; line-height: 1.6;
+  margin-top: 0.9rem; line-height: 1.6;
+  max-width: none;        /* run the full width of the image above it */
+  text-wrap: pretty;      /* avoid a lone word on the last line */
 }
 .pb-text { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); white-space: pre-wrap; }
 .pb-text.cols2 { column-count: 2; column-gap: 3rem; }
