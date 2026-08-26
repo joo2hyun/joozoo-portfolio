@@ -431,14 +431,25 @@ section { padding: 5.5rem 0; }
 .about-tools {
   grid-column: 1 / -1;
   margin-top: 2.5rem;
-  display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem;
 }
 .tools-label {
   font-family: var(--display); font-weight: 500;
   font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--muted);
-  margin-right: 0.5rem;
+  display: block; margin-bottom: 1.25rem;
 }
+.tool-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem 2.5rem;
+}
+.tool-group-name {
+  font-family: var(--display); font-weight: 600;
+  font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent);
+  display: block; margin-bottom: 0.7rem;
+}
+.tool-group-items { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .tool-badge {
   font-family: var(--display);
   font-size: 0.78rem;
@@ -704,12 +715,42 @@ footer {
 
     <div class="about-tools">
       <span class="tools-label">Tools</span>
-      <span class="tool-badge">Figma</span>
-      <span class="tool-badge">Adobe Illustrator</span>
-      <span class="tool-badge">InDesign</span>
-      <span class="tool-badge">Photoshop</span>
-      <span class="tool-badge">After Effects</span>
-      <span class="tool-badge">Procreate</span>
+      <div class="tool-groups">
+        <div>
+          <span class="tool-group-name">AI</span>
+          <div class="tool-group-items">
+            <span class="tool-badge">Claude</span>
+            <span class="tool-badge">Gemini</span>
+            <span class="tool-badge">Nano Banana</span>
+            <span class="tool-badge">Adobe Firefly</span>
+            <span class="tool-badge">Higgsfield</span>
+          </div>
+        </div>
+        <div>
+          <span class="tool-group-name">Adobe</span>
+          <div class="tool-group-items">
+            <span class="tool-badge">Illustrator</span>
+            <span class="tool-badge">InDesign</span>
+            <span class="tool-badge">Photoshop</span>
+            <span class="tool-badge">After Effects</span>
+          </div>
+        </div>
+        <div>
+          <span class="tool-group-name">Microsoft</span>
+          <div class="tool-group-items">
+            <span class="tool-badge">PowerPoint</span>
+            <span class="tool-badge">Word</span>
+            <span class="tool-badge">Excel</span>
+          </div>
+        </div>
+        <div>
+          <span class="tool-group-name">Design</span>
+          <div class="tool-group-items">
+            <span class="tool-badge">Figma</span>
+            <span class="tool-badge">Procreate</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
