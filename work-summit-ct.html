@@ -207,9 +207,11 @@ nav {
 }
 
 /* image grids inside rows */
-.pb-grid { display: grid; gap: 1rem; }
-.pb-grid img { width: 100%; border-radius: 12px; display: block; }
-.pb-grid.multi img { height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.pb-grid { display: grid; gap: 1rem; align-items: start; }
+.pb-grid img {
+  width: 100%; height: auto;      /* keep each image's own proportions */
+  border-radius: 12px; display: block;
+}
 .pb-caption {
   font-size: 0.92rem; color: var(--muted);
   margin-top: 0.9rem; line-height: 1.6;
