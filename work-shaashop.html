@@ -153,6 +153,7 @@ nav {
 /* HERO */
 .hero-wrap { max-width: var(--maxw); margin: 0 auto 4rem; padding: 0 var(--pad); }
 .hero-img { width: 100%; border-radius: 20px; display: block; }
+.hero-crop { aspect-ratio: 16 / 9; object-fit: cover; object-position: center; }
 .hero-ph {
   border-radius: 20px; overflow: hidden; position: relative;
   aspect-ratio: 16 / 9;
@@ -480,7 +481,7 @@ function renderContentBlocks(blocks) {
 
     if (p.hero_image_url) {
       document.getElementById('dt-hero-wrap').innerHTML =
-        '<img class="hero-img" src="' + esc(p.hero_image_url) + '" alt="' + esc(p.name || '') + '">';
+        '<img class="hero-img hero-crop" src="' + esc(p.hero_image_url) + '" alt="' + esc(p.name || '') + '">';
     } else {
       const frame = document.getElementById('dt-hero-frame');
       frame.className = 'hero-ph ' + (p.cover_class || '') + ' ' + (p.cover_pattern || '');

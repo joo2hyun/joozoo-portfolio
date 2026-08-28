@@ -598,7 +598,7 @@ function renderContentBlocks(blocks) {
 
     if (p.hero_image_url) {
       document.getElementById('dt-hero-wrap').innerHTML =
-        '<img class="hero-img" src="' + esc(p.hero_image_url) + '" alt="' + esc(p.name || '') + '">';
+        '<img class="hero-img hero-crop" src="' + esc(p.hero_image_url) + '" alt="' + esc(p.name || '') + '">';
     } else {
       const frame = document.getElementById('dt-hero-frame');
       frame.className = 'hero-ph ' + (p.cover_class || '') + ' ' + (p.cover_pattern || '');
