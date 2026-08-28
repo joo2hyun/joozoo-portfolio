@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Print files — Summit C&amp;T — Joohyun Kim</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FBFAF7;
+  --surface: #F3F1EA;
+  --ink: #171717;
+  --ink-soft: #55524A;
+  --muted: #8C8879;
+  --border: #E2DFD3;
+  --accent: #A16207;
+  --dark: #23262E;
+  --display: 'Space Grotesk', sans-serif;
+  --body: 'Archivo', sans-serif;
+  --pad: clamp(1.25rem, 4vw, 3.5rem);
+  --maxw: 1100px;
+}
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px; line-height: 1.55;
+  -webkit-user-select: none; user-select: none;
+}
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+header {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 2rem var(--pad) 0;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.brand {
+  font-family: var(--display); font-weight: 700; font-size: 0.8rem;
+  color: var(--bg); background: var(--ink);
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; flex-shrink: 0;
+}
+.back-link {
+  font-family: var(--display); font-weight: 500; font-size: 0.8rem;
+  color: var(--ink-soft); text-decoration: none;
+  padding: 0.55rem 1.1rem; border: 1px solid var(--border); border-radius: 999px;
+  transition: background 0.2s, color 0.2s;
+}
+.back-link:hover { background: var(--surface); color: var(--accent); }
+
+.head {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 2.5rem var(--pad) 0;
+}
+.kicker {
+  font-family: var(--display); font-weight: 500;
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); display: block; margin-bottom: 0.7rem;
+}
+h1 {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  line-height: 1.04; letter-spacing: -0.03em;
+}
+.note {
+  font-size: 0.85rem; color: var(--muted);
+  margin-top: 0.9rem; display: flex; align-items: center; gap: 0.45rem;
+}
+.note .lock { font-size: 0.9rem; }
+
+.tabs {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 1.75rem var(--pad) 0;
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+}
+.tab {
+  font-family: var(--display); font-weight: 600; font-size: 0.8rem;
+  color: var(--ink-soft); background: transparent;
+  border: 1px solid var(--border); border-radius: 999px;
+  padding: 0.6rem 1.2rem; cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.tab:hover { background: var(--surface); }
+.tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 2rem var(--pad) 4rem; }
+.doc[hidden] { display: none; }
+.doc-caption {
+  font-size: 0.92rem; color: var(--muted); line-height: 1.6;
+  margin-bottom: 1.5rem; max-width: 640px;
+}
+
+/* The overlay sits above the artwork so a right-click or long-press
+   lands on it instead of the image itself. */
+.sheet { position: relative; margin-bottom: 1.5rem; }
+.sheet img {
+  width: 100%; height: auto; display: block;
+  border: 1px solid var(--border); border-radius: 12px;
+  background: #fff;
+  -webkit-user-drag: none; user-drag: none;
+  pointer-events: none;
+}
+.sheet::after {
+  content: ''; position: absolute; inset: 0;
+  border-radius: 12px;
+}
+.sheet-label {
+  font-family: var(--display); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.55rem; display: block;
+}
+
+footer {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 0 var(--pad) 3rem;
+  font-size: 0.8rem; color: var(--muted);
+}
+
+/* Printing would hand over a clean copy — so it hands over nothing. */
+@media print {
+  body * { display: none !important; }
+  body::before {
+    content: 'This document is view-only.';
+    display: block !important;
+    font-family: sans-serif; font-size: 14pt; padding: 2rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="brand" aria-label="Joohyun Kim home">JK</a>
+  <a href="work-summit-ct.html" class="back-link">← Back to Summit C&amp;T</a>
+</header>
+
+<div class="head">
+  <span class="kicker">Summit C&amp;T — HOXY™</span>
+  <h1 id="docTitle">Ramen box dieline</h1>
+  <p class="note"><span class="lock" aria-hidden="true">🔒</span> View only — this file is not available for download or print.</p>
+</div>
+
+<div class="tabs" role="tablist">
+  <button class="tab" role="tab" id="tab-ramen" aria-controls="doc-ramen" aria-selected="true" data-doc="ramen">Ramen box dieline</button>
+  <button class="tab" role="tab" id="tab-snack" aria-controls="doc-snack" aria-selected="false" data-doc="snack">Snack box template</button>
+</div>
+
+<main>
+  <section class="doc" id="doc-ramen" role="tabpanel" aria-labelledby="tab-ramen">
+    <p class="doc-caption">Structural dieline for the HOXY air-dried ramen four-pack carton — 108 × 108 × 138 mm, printed flat with cut, crease and bleed marks.</p>
+    <div class="sheet">
+      <span class="sheet-label">Sheet 1 of 1</span>
+      <img src="assets/summit-ct/dieline-ramen-box.jpg" alt="Ramen box dieline: flat carton layout with cut and crease marks, printed panels and dimension callouts" draggable="false">
+    </div>
+  </section>
+
+  <section class="doc" id="doc-snack" role="tabpanel" aria-labelledby="tab-snack" hidden>
+    <p class="doc-caption">Structural template for the Asian Munchies subscription snack box — 265 × 190 × 128 mm on E-flute, outer artwork and inner tray printed as one sheet pair.</p>
+    <div class="sheet">
+      <span class="sheet-label">Sheet 1 of 2 — outer</span>
+      <img src="assets/summit-ct/template-snack-box-1.jpg" alt="Snack box template, outer sheet: flat carton layout with vending machine artwork" draggable="false">
+    </div>
+    <div class="sheet">
+      <span class="sheet-label">Sheet 2 of 2 — inner</span>
+      <img src="assets/summit-ct/template-snack-box-2.jpg" alt="Snack box template, inner sheet: dieline information table and inner tray artwork" draggable="false">
+    </div>
+  </section>
+</main>
+
+<footer>© 2024 Joohyun Kim. Shown for portfolio review only.</footer>
+
+<script>
+const TITLES = { ramen: 'Ramen box dieline', snack: 'Snack box template' };
+
+function show(doc) {
+  if (!TITLES[doc]) doc = 'ramen';
+  document.querySelectorAll('.tab').forEach(t => {
+    const on = t.dataset.doc === doc;
+    t.setAttribute('aria-selected', String(on));
+  });
+  document.getElementById('doc-ramen').hidden = doc !== 'ramen';
+  document.getElementById('doc-snack').hidden = doc !== 'snack';
+  document.getElementById('docTitle').textContent = TITLES[doc];
+  document.title = TITLES[doc] + ' — Summit C&T — Joohyun Kim';
+  history.replaceState(null, '', '?doc=' + doc);
+}
+
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => show(t.dataset.doc));
+});
+
+show(new URLSearchParams(location.search).get('doc') || 'ramen');
+
+/* Deterrents: they raise the effort of saving a copy, they do not make it
+   impossible — anything the browser renders can still be captured. */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if ((e.metaKey || e.ctrlKey) && (k === 's' || k === 'p')) e.preventDefault();
+});
+</script>
+</body>
+</html>

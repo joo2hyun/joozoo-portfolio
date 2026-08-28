@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 Disallow: /admin-login.html
+Disallow: /view-summit-ct-print.html
 
 Sitemap: https://joozoo.work/sitemap.xml

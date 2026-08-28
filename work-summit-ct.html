@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Summit C&amp;T — Joohyun Kim</title>
-<meta name="description" content="Summit C&amp;T — CPG, Packaging, by Joohyun Kim.">
+<meta name="description" content="Summit C&amp;T — in-house brand design and packaging for HOXY, plus Amazon marketing for Gung Jeon Bang, by Joohyun Kim.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
@@ -153,6 +153,7 @@ nav {
 /* HERO */
 .hero-wrap { max-width: var(--maxw); margin: 0 auto 4rem; padding: 0 var(--pad); }
 .hero-img { width: 100%; border-radius: 20px; display: block; }
+.hero-crop { aspect-ratio: 16 / 9; object-fit: cover; object-position: center 52%; }
 .hero-ph {
   border-radius: 20px; overflow: hidden; position: relative;
   aspect-ratio: 16 / 9;
@@ -287,6 +288,47 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
+/* HANDOFF — Summit C&T: cropped hero, brand chapters, reels */
+.chapter-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad) 3.5rem; }
+.chapter {
+  border-radius: 24px; padding: 2.25rem 2.5rem;
+  border: 1px solid var(--border);
+  display: grid; grid-template-columns: 1fr 240px; gap: 3rem; align-items: start;
+}
+.chapter.hoxy { background: #FFF8E6; }
+.chapter.gjb { background: #F7ECEB; }
+.chapter-kicker {
+  font-family: var(--display); font-weight: 600;
+  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-soft); display: block; margin-bottom: 0.8rem;
+}
+.chapter-name {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 1rem;
+}
+.chapter-body { font-size: 1rem; line-height: 1.7; color: var(--ink-soft); max-width: 520px; }
+.chapter-scope { list-style: none; display: grid; gap: 0.55rem; }
+.chapter-scope li {
+  font-family: var(--display); font-size: 0.82rem; font-weight: 600;
+  padding-bottom: 0.55rem; border-bottom: 1px solid rgba(23,23,23,0.09);
+}
+.chapter-scope li:last-child { border-bottom: none; padding-bottom: 0; }
+
+.reels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.reels video {
+  width: 100%; aspect-ratio: 9 / 16; object-fit: cover;
+  background: var(--dark); border-radius: 12px; display: block;
+}
+.reel-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; display: block; }
+
+.pb-caption a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.pb-caption a:hover { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .chapter { grid-template-columns: 1fr; gap: 1.75rem; padding: 1.75rem 1.5rem; }
+}
 </style>
 </head>
 <body>
@@ -308,32 +350,161 @@ footer {
   <a href="index.html#work" class="back-link">← Back to work</a>
   <div class="header-grid">
     <div>
-      <div class="detail-tags" id="dt-tags"></div>
+      <div class="detail-tags" id="dt-tags"><span class="detail-tag">Brand Design</span><span class="detail-tag">Packaging</span><span class="detail-tag">Retail Content</span></div>
       <h1 class="detail-title" id="dt-title">Summit C&amp;T</h1>
-      <p class="detail-desc" id="dt-desc"></p>
+      <p class="detail-desc" id="dt-desc">In-house design at a Korean food importer in New Jersey — building HOXY, the company's own brand, from packaging to trade-show booth, and running Amazon marketing for Gung Jeon Bang, a partner rice-cake maker.</p>
     </div>
     <dl class="meta-list">
-      <div><dt class="meta-label">Year</dt><dd class="meta-value" id="dt-year">2026</dd></div>
-      <div><dt class="meta-label">Client</dt><dd class="meta-value" id="dt-client">Summit C&amp;T</dd></div>
-      <div><dt class="meta-label">Category</dt><dd class="meta-value" id="dt-category">CPG, Packaging</dd></div>
-      <div><dt class="meta-label">Role</dt><dd class="meta-value" id="dt-role">Design</dd></div>
+      <div><dt class="meta-label">Year</dt><dd class="meta-value" id="dt-year">2025 — 2026</dd></div>
+      <div><dt class="meta-label">Client</dt><dd class="meta-value" id="dt-client">Summit C&amp;T LLC</dd></div>
+      <div><dt class="meta-label">Brands</dt><dd class="meta-value">HOXY™ (in-house), Gung Jeon Bang® (partner)</dd></div>
+      <div><dt class="meta-label">Category</dt><dd class="meta-value" id="dt-category">Brand Design, Packaging</dd></div>
+      <div><dt class="meta-label">Role</dt><dd class="meta-value" id="dt-role">Brand &amp; Packaging Designer</dd></div>
     </dl>
   </div>
 </header>
 
 <div class="hero-wrap reveal" id="dt-hero-wrap">
-  <div class="hero-ph c8 cover-grid" id="dt-hero-frame">
-    <span class="frame-badge" id="dt-hero-badge"><span class="dot"></span>Summit C&amp;T</span>
-    <span class="hero-hint">+ Add hero image</span>
-  </div>
+  <img class="hero-img hero-crop" src="assets/summit-ct/hero-table-spread.webp" alt="Overhead table spread: HOXY ramen seasoning pouch, ramen topping bag, red chili pepper shaker, kimchi, cucumber salad and stir-fry ramen in warm daylight">
 </div>
 
 <section class="row reveal">
   <div><h2 class="row-label" id="dt-section-label">Overview</h2></div>
   <div class="row-body">
-    <p class="sec-statement" id="dt-statement">I designed CPG packaging systems for Summit C&amp;T.</p>
-    <p class="sec-placeholder" id="dt-overview">Add a short project overview here — the brief, the goal, and who it was for.</p>
+    <p class="sec-statement" id="dt-statement">One brand built from nothing, one brand helped onto Amazon.</p>
+    <p class="sec-overview" id="dt-overview">Summit C&amp;T imports and distributes Korean pantry goods across the US. HOXY is its own brand, and I designed it end to end — a yellow speech-bubble mark and noodle character carried through seasoning pouches, ramen cartons, display shippers, Amazon listings and booths at KeHE and Fancy Food. Gung Jeon Bang is a separate rice-cake maker, in business since 1983, whose US launch we supported: there the work was Amazon marketing — A+ content and listing art direction inside their existing brand, not a rebrand of it.</p>
     <div class="gallery" id="dt-gallery" style="margin-top:2rem"></div>
+  </div>
+</section>
+
+<div class="chapter-wrap reveal">
+  <div class="chapter hoxy">
+    <div>
+      <span class="chapter-kicker">In-house brand</span>
+      <h2 class="chapter-name">HOXY™</h2>
+      <p class="chapter-body">Summit C&amp;T's own brand, designed from the mark outward: Korean ramen &amp; kimchi seasoning, ramen toppings and air-dried noodles in a bold yellow-and-orange system with a noodle mascot, sold on Amazon and through natural-channel retail.</p>
+    </div>
+    <ul class="chapter-scope">
+      <li>Brand identity</li>
+      <li>Packaging &amp; dielines</li>
+      <li>Retail display shipper</li>
+      <li>Amazon A+ content</li>
+      <li>Trade-show booth</li>
+      <li>Social &amp; reels</li>
+    </ul>
+  </div>
+</div>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Seasoning pouch</h2><span class="row-sub">01 — Packaging</span></div>
+  <div class="row-body">
+    <div class="pb-grid"><img src="assets/summit-ct/pack-seasoning-pouch.jpg" alt="Three front-panel directions for HOXY Korean Ramen Seasoning beef flavor mini pouch" loading="lazy" width="1800" height="600"></div>
+    <p class="pb-caption">Three front-panel routes for the 5.3oz mini pouch — mascot-led, ingredient-led and badge-led — resolving how much of the noodle character survives at a size where flavor, certifications and net weight all have to be legible on shelf.</p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Ramen noodle box</h2><span class="row-sub">02 — Packaging</span></div>
+  <div class="row-body">
+    <div class="pb-grid"><img src="assets/summit-ct/pack-ramen-box.jpg" alt="HOXY Air-Dried Ramen Noodles four-pack carton, front and back panels" loading="lazy" width="1800" height="1164"></div>
+    <p class="pb-caption">A four-pack carton for gluten-free air-dried noodles: illustrated three-step cook instructions across the side panel, nutrition and ingredient panel on the reverse, and a sand-and-tomato palette that reads as pantry rather than instant. <a href="view-summit-ct-print.html?doc=ramen" target="_blank" rel="noopener">View the dieline ↗</a></p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Display shipper</h2><span class="row-sub">03 — Retail</span></div>
+  <div class="row-body">
+    <div class="pb-grid"><img src="assets/summit-ct/retail-display-shipper.jpg" alt="HOXY floor display shipper, three views with The Magic Behind The Sprinkle header panel" loading="lazy" width="1800" height="1164"></div>
+    <p class="pb-caption">A five-shelf floor display built around one line — <em>The Magic Behind The Sprinkle</em> — with colour-coded trays per SKU, claims running vertically up the side wing, and the full product family printed on the back panel for restocking.</p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Snack box</h2><span class="row-sub">04 — Packaging</span></div>
+  <div class="row-body">
+    <div class="pb-grid"><img src="assets/summit-ct/pack-snack-box.jpg" alt="Asian Munchies subscription snack box, vending machine illustration on the lid" loading="lazy" width="1536" height="592"></div>
+    <p class="pb-caption">A subscription snack box drawn as a vending machine: the lid becomes the glass front, the die-cut window shows real product acting as the display row, and the numbered snack slots double as an index of what is inside. <a href="view-summit-ct-print.html?doc=snack" target="_blank" rel="noopener">View the template ↗</a></p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Amazon A+ content</h2><span class="row-sub">05 — Listing modules</span></div>
+  <div class="row-body">
+    <div class="pb-grid" style="gap:0.9rem">
+      <img src="assets/summit-ct/aplus-hoxy-01-brand-header.jpg" alt="HOXY logo banner module on a blurred kitchen photograph" loading="lazy" width="1455" height="450">
+      <img src="assets/summit-ct/aplus-hoxy-02-gift-basket.jpg" alt="Bold flavors no fuss module: a Father's Day gift basket with a HOXY ramen seasoning pouch in it" loading="lazy" width="1455" height="900">
+      <img src="assets/summit-ct/aplus-hoxy-03-gochugaru.jpg" alt="What is gochugaru explainer module over a gochugaru texture photograph" loading="lazy" width="1455" height="900">
+      <img src="assets/summit-ct/aplus-hoxy-04-chili-spec.jpg" alt="HOXY Red Chili Pepper spec module: two shakers on a plinth with claim badges" loading="lazy" width="1455" height="900">
+      <img src="assets/summit-ct/aplus-hoxy-05-usecase-green.jpg" alt="One seasoning endless possibilities module: ramen, pasta, trail mix, stir-fry and popcorn on a green cloth" loading="lazy" width="1455" height="900">
+      <img src="assets/summit-ct/aplus-hoxy-06-usecase-pink.jpg" alt="Spice up everything module: corn, pizza, cucumber salad, fruit and avocado toast on a pink cloth" loading="lazy" width="1455" height="900">
+    </div>
+    <div class="pb-grid multi" style="grid-template-columns:repeat(3,1fr);gap:0.9rem;margin-top:0.9rem">
+      <img src="assets/summit-ct/aplus-hoxy-07-usage-kimchi.jpg" alt="Bibimbap, kimchi tacos and seasoned popcorn usage photography" loading="lazy" width="450" height="450">
+      <img src="assets/summit-ct/aplus-hoxy-08-usage-ramen.jpg" alt="Grain bowls and stews seasoned with HOXY ramen seasoning" loading="lazy" width="450" height="450">
+      <img src="assets/summit-ct/aplus-hoxy-09-usage-seasonings.jpg" alt="Cucumber salad, seasoned chips and pizza usage photography" loading="lazy" width="450" height="450">
+    </div>
+    <p class="pb-caption">A modular A+ kit — brand banner, ingredient explainer, product spec with claim badges, “use it on everything” grids and square usage photography — with seasonal skins for Memorial Day, Mother's Day and Thanksgiving so a listing can be reset for a holiday without redrawing the layout. Thirty-odd modules across the kimchi, ramen and seasoning listings.</p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">KeHE Show 2026</h2><span class="row-sub">06 — Trade show</span></div>
+  <div class="row-body">
+    <div class="pb-grid" style="max-width:520px"><img src="assets/summit-ct/tradeshow-kehe-booth.jpg" alt="HOXY booth at the KeHE show: step-and-repeat backdrop, orange table cover and sampling setup" loading="lazy" width="1086" height="1448"></div>
+    <p class="pb-caption">Booth build for the KeHE buyer show — a HOXY × Summit C&amp;T step-and-repeat with product hero shots dropped into the grid, printed table cover, sampling signage and a connect card, all shipping flat in one crate.</p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Fancy Food Show 2026</h2><span class="row-sub">07 — Poster design</span></div>
+  <div class="row-body">
+    <div class="pb-grid"><img src="assets/summit-ct/poster-fancy-show.jpg" alt="Three When Hoxy Meets posters pasted on a brick wall — product line-up, seasoning with tteok, and kimchi seasoning with ramen" loading="lazy" width="1800" height="1440"></div>
+    <p class="pb-caption">A three-poster set for the Fancy Food Show built on one line — <em>When HOXY meets…</em> — with the phrase outlined large enough to bleed off every sheet so the three read as one wall. Deep green ground, the full product line-up on the first sheet, then two cross-brand plates pairing HOXY seasoning with Gung Jeon Bang rice cakes, callouts pinned as stickers.</p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Reels</h2><span class="row-sub">08 — Social video</span></div>
+  <div class="row-body">
+    <div class="reels">
+      <div>
+        <video src="assets/summit-ct/reel-fathers-day.mp4" controls muted loop playsinline preload="metadata"></video>
+        <span class="reel-label">Father's Day dinner — cooking content</span>
+      </div>
+      <div>
+        <video src="assets/summit-ct/reel-kehe.mp4" controls muted loop playsinline preload="metadata"></video>
+        <span class="reel-label">On the way to KeHE — show teaser</span>
+      </div>
+    </div>
+    <p class="pb-caption">Vertical cuts for Instagram and TikTok: a Father's Day dinner cooked with the seasoning line, and a behind-the-scenes run-up to the KeHE show — shot and edited in-house so the brand's type and sticker set could be dropped straight onto the footage.</p>
+  </div>
+</section>
+
+<div class="chapter-wrap reveal">
+  <div class="chapter gjb">
+    <div>
+      <span class="chapter-kicker">Partner brand — Amazon marketing</span>
+      <h2 class="chapter-name">Gung Jeon Bang®</h2>
+      <p class="chapter-body">Rice cakes made from pure rice, since 1983 — not our brand. We ran its US Amazon marketing, so the work was listing content built inside the maker's existing register: deep red, the woven 궁전방 seal, dark kitchen photography.</p>
+    </div>
+    <ul class="chapter-scope">
+      <li>Amazon A+ content</li>
+      <li>Listing art direction</li>
+      <li>Photography direction</li>
+    </ul>
+  </div>
+</div>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Amazon A+ content</h2><span class="row-sub">One four-module set, in scroll order</span></div>
+  <div class="row-body">
+    <div class="pb-grid" style="gap:0.9rem">
+      <img src="assets/summit-ct/aplus-gjb-01-sieve.jpg" alt="Module 1: hands holding a wooden sieve dusted with rice flour, Gung Jeon Bang seal top right" loading="lazy" width="1800" height="714">
+      <img src="assets/summit-ct/aplus-gjb-02-since-1983.jpg" alt="Module 2: rice flour falling through a dark frame with K-Food Gung Jeon Bang Since 1983 headline" loading="lazy" width="1800" height="514">
+      <img src="assets/summit-ct/aplus-gjb-03-food-grid.jpg" alt="Module 3: three-row food grid of tteokbokki and tteokguk with Soft and Chewy Rice Cakes From Korea headline" loading="lazy" width="1800" height="1104">
+      <img src="assets/summit-ct/aplus-gjb-04-packaging.jpg" alt="Module 4: rice cake stick and sliced rice cake retail bags on a deep red field with the woven seal" loading="lazy" width="1800" height="600">
+    </div>
+    <p class="pb-caption">A single A+ set read top to bottom: it opens on craft rather than product — floured hands, a sieve, flour in mid-air — with the red seal placed as a maker's mark, then turns to the texture claim over a stacked food grid, and closes on the two SKUs flat on brand red with the woven mark blown up as a watermark. Type stays to three lines a module so nothing breaks when Amazon crops the frame.</p>
   </div>
 </section>
 
