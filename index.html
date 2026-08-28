@@ -370,6 +370,21 @@ section { padding: 5.5rem 0; }
 .work-row:hover .sparkle.top { transform: rotate(25deg) scale(1.15); }
 .work-row:hover .sparkle.bottom { transform: rotate(-20deg) scale(1.15); }
 
+/* A project that has no page yet: shown, but inert. */
+.work-row.is-soon { cursor: default; }
+.work-row.is-soon .work-frame { opacity: 0.62; }
+.work-row.is-soon .work-link {
+  color: var(--muted);
+  border-bottom-style: dashed;
+  border-bottom-color: var(--border);
+}
+.work-row.is-soon:hover .work-frame {
+  transform: none; box-shadow: none; border-color: var(--border);
+}
+.work-row.is-soon:hover .work-link { color: var(--muted); border-bottom-color: var(--border); }
+.work-row.is-soon:hover .sparkle.top,
+.work-row.is-soon:hover .sparkle.bottom { transform: none; }
+
 @media (prefers-reduced-motion: reduce) {
   .work-row-text, .work-row-frame { opacity: 1 !important; transform: none !important; }
 }
@@ -641,11 +656,11 @@ footer {
   <div class="grid-12">
     <div class="work-rows">
 
-      <a href="work-esu-farm.html" class="work-row" data-name="ESU Farm" data-slug="esu-farm">
+      <div class="work-row is-soon" data-name="ESU Farm" data-slug="esu-farm">
         <div class="work-row-text">
           <p class="work-statement" id="wr-statement-esu-farm">I led brand identity and marketing for ESU Farm.</p>
           <p class="work-meta" id="wr-meta-esu-farm">2026 · Branding, Marketing</p>
-          <span class="work-link">View project →</span>
+          <span class="work-link">Coming soon…</span>
         </div>
         <div class="work-row-frame">
           <div class="work-frame c4 cover-lines">
@@ -654,7 +669,7 @@ footer {
             <svg class="sparkle bottom" width="20" height="20" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
           </div>
         </div>
-      </a>
+      </div>
 
       <a href="work-summit-ct.html" class="work-row" data-name="Summit C&amp;T" data-slug="summit-ct">
         <div class="work-row-text">
@@ -664,7 +679,7 @@ footer {
         </div>
         <div class="work-row-frame">
           <div class="work-frame c8 cover-grid">
-            <span class="frame-badge" id="wr-badge-summit-ct"><span class="dot"></span>Summit C&amp;T</span>
+            <img class="work-cover-img" src="assets/summit-ct/hero-table-spread.webp" alt="Summit C&amp;T" loading="lazy"><span class="frame-badge" id="wr-badge-summit-ct"><span class="dot"></span>Summit C&amp;T</span>
             <svg class="sparkle top" width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
             <svg class="sparkle bottom" width="20" height="20" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M14 0L16 12L28 14L16 16L14 28L12 16L0 14L12 12L14 0Z" fill="currentColor"/></svg>
           </div>
@@ -860,7 +875,7 @@ footer {
         if (p.cover_class || p.cover_pattern) {
           frameEl.className = 'work-frame ' + (p.cover_class || '') + ' ' + (p.cover_pattern || '');
         }
-        if (p.accent_color) {
+        if (p.accent_color && !rowEl.classList.contains('is-soon')) {
           rowEl.addEventListener('mouseenter', () => { frameEl.style.borderColor = p.accent_color; });
           rowEl.addEventListener('mouseleave', () => { frameEl.style.borderColor = ''; });
         }
