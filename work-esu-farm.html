@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ESU Farm — Joohyun Kim</title>
-<meta name="robots" content="noindex, nofollow">
-<meta name="description" content="ESU Farm — Branding, Marketing, by Joohyun Kim.">
+<meta name="description" content="ESU Farm — Tommy's Farm packaging, sales collateral and website, plus the Global Produce &amp; Floral Show 2026 booth, print and social, by Joohyun Kim.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
@@ -154,7 +153,7 @@ nav {
 /* HERO */
 .hero-wrap { max-width: var(--maxw); margin: 0 auto 4rem; padding: 0 var(--pad); }
 .hero-img { width: 100%; border-radius: 20px; display: block; }
-.hero-crop { aspect-ratio: 16 / 9; object-fit: cover; object-position: center; }
+.hero-crop { aspect-ratio: 16 / 9; object-fit: cover; object-position: center 52%; }
 .hero-ph {
   border-radius: 20px; overflow: hidden; position: relative;
   aspect-ratio: 16 / 9;
@@ -289,6 +288,165 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
+/* HANDOFF — Summit C&T: cropped hero, brand chapters, reels */
+.chapter-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad) 3.5rem; }
+.chapter {
+  border-radius: 24px; padding: 2.25rem 2.5rem;
+  border: 1px solid var(--border);
+  display: grid; grid-template-columns: 1fr 240px; gap: 3rem; align-items: start;
+}
+.chapter.hoxy { background: #FFF8E6; }
+.chapter.gjb { background: #F7ECEB; }
+.chapter-kicker {
+  font-family: var(--display); font-weight: 600;
+  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-soft); display: block; margin-bottom: 0.8rem;
+}
+.chapter-name {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 1rem;
+}
+.chapter-body { font-size: 1rem; line-height: 1.7; color: var(--ink-soft); max-width: 520px; }
+.chapter-scope { list-style: none; display: grid; gap: 0.55rem; }
+.chapter-scope li {
+  font-family: var(--display); font-size: 0.82rem; font-weight: 600;
+  padding-bottom: 0.55rem; border-bottom: 1px solid rgba(23,23,23,0.09);
+}
+.chapter-scope li:last-child { border-bottom: none; padding-bottom: 0; }
+
+.reels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.reels video {
+  width: 100%; aspect-ratio: 9 / 16; object-fit: cover;
+  background: var(--dark); border-radius: 12px; display: block;
+}
+.reel-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; display: block; }
+
+.pb-caption a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.pb-caption a:hover { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .chapter { grid-template-columns: 1fr; gap: 1.75rem; padding: 1.75rem 1.5rem; }
+}
+
+/* HANDOFF — ESU Farm: two chapters, flip cards, two-lane social timeline */
+.chapter.tommy { background: #EEF4EC; }
+.chapter.show { background: #FBEEE9; }
+
+.pb-grid.two { grid-template-columns: repeat(2, 1fr); }
+.pb-narrow { max-width: 62%; }
+
+/* 02 — one-pagers: front/back flip */
+.flip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; }
+.flip { perspective: 1400px; cursor: pointer; background: none; border: 0; padding: 0; font: inherit; color: inherit; text-align: left; }
+.flip-inner {
+  position: relative; aspect-ratio: 5 / 7;
+  transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.2,0.7,0.2,1);
+}
+.flip-inner img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  border-radius: 10px; backface-visibility: hidden;
+  box-shadow: 0 1px 2px rgba(23,23,23,0.08), 0 10px 24px -12px rgba(23,23,23,0.25);
+}
+.flip-inner img.back { transform: rotateY(180deg); }
+.flip.on .flip-inner { transform: rotateY(180deg); }
+@media (hover: hover) and (pointer: fine) { .flip:hover .flip-inner { transform: rotateY(180deg); } }
+.flip-label { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
+.flip-label b { font-family: var(--display); font-weight: 600; color: var(--ink); }
+.flip-hint { font-size: 0.78rem; color: var(--muted); margin-top: 0.9rem; }
+
+/* 06 — brochure: fold open / closed / turn over */
+.bro-stage {
+  position: relative; aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden;
+  background: radial-gradient(90% 90% at 50% 42%, #2b4d3b 0%, #1f3a2c 72%);
+  perspective: 2600px; cursor: pointer;
+}
+.bro {
+  position: absolute; top: 9%; left: 50%; height: 80%; aspect-ratio: 1800 / 1398;
+  transform-style: preserve-3d; transform-origin: 75% 50%;
+  transform: translateX(-75%);
+  transition: transform 0.9s cubic-bezier(0.3,0.7,0.2,1);
+}
+.bro-panel { position: absolute; top: 0; left: 50%; width: 50%; height: 100%; transform-style: preserve-3d; }
+.bro-leaf { transform-origin: 0 50%; transform: translateZ(1px); transition: transform 0.9s cubic-bezier(0.3,0.7,0.2,1); }
+.bro-panel img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+  backface-visibility: hidden; background: #fff;
+}
+.bro-panel img.b { transform: rotateY(180deg); }
+/* fold shading: spine side of each open page */
+.bro-base::after, .bro-leaf::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.6s;
+  backface-visibility: hidden;
+}
+.bro-base::after { background: linear-gradient(90deg, rgba(0,0,0,0.14), rgba(0,0,0,0) 12%); }
+.bro-leaf::after { transform: rotateY(180deg); background: linear-gradient(270deg, rgba(0,0,0,0.16), rgba(0,0,0,0) 12%); }
+.bro-shadow {
+  position: absolute; left: 50%; top: 86%; height: 6%; width: 32%;
+  transform: translateX(-50%); border-radius: 50%;
+  background: rgba(0,0,0,0.45); filter: blur(18px); transition: width 0.9s cubic-bezier(0.3,0.7,0.2,1);
+}
+.bro-stage[data-state="open"] .bro { transform: translateX(-50%); }
+.bro-stage[data-state="open"] .bro-leaf { transform: translateZ(1px) rotateY(-180deg); }
+.bro-stage[data-state="open"] .bro-base::after,
+.bro-stage[data-state="open"] .bro-leaf::after { opacity: 1; }
+.bro-stage[data-state="open"] .bro-shadow { width: 62%; }
+.bro-stage[data-state="back"] .bro { transform: translateX(-75%) rotateY(180deg); }
+.bro-ctrl { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.9rem; flex-wrap: wrap; }
+.bro-ctrl button {
+  font-family: var(--display); font-weight: 600; font-size: 0.78rem;
+  padding: 0.45rem 0.95rem; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--border); background: transparent; color: var(--ink-soft);
+}
+.bro-ctrl button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.bro-ctrl span { font-size: 0.78rem; color: var(--muted); margin-left: 0.4rem; }
+@media (prefers-reduced-motion: reduce) {
+  .bro, .bro-leaf, .bro-shadow { transition: none; }
+}
+
+/* 09 — social: one date axis, two account lanes */
+.lanes-wrap { max-width: 1340px; margin: 0 auto; padding: 0 var(--pad) 4.5rem; }
+.lanes-head { max-width: calc(var(--maxw) - 2 * var(--pad)); margin-left: auto; margin-right: auto; display: grid; grid-template-columns: var(--rail) 1fr; gap: var(--gap); margin-bottom: 1.75rem; }
+.lanes-scroll { overflow-x: auto; padding-bottom: 0.75rem; scrollbar-width: thin; }
+.lanes {
+  display: grid; grid-template-columns: 104px repeat(6, minmax(140px, 1fr));
+  gap: 1rem 0.9rem;
+}
+.lane-date {
+  font-family: var(--display); font-weight: 600; font-size: 0.72rem;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  padding-bottom: 0.55rem; border-bottom: 1px solid var(--border);
+}
+.lane-date.show-day { color: var(--accent); border-bottom-color: var(--accent); }
+.lane-name { font-family: var(--display); font-weight: 700; font-size: 0.95rem; line-height: 1.25; padding-top: 0.2rem; }
+.lane-name small { display: block; font-family: var(--body); font-weight: 400; font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+.lane-cell { min-width: 0; }
+.lane-cell.empty { border-left: 1px dashed var(--border); margin-left: 50%; }
+.lane-cell video {
+  width: 100%; display: block; border-radius: 10px; background: var(--dark);
+  aspect-ratio: 9 / 16; object-fit: cover;
+}
+.lane-cell video.land { aspect-ratio: auto; }
+.lane-cap { font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.45rem; display: block; line-height: 1.4; }
+.lane-cap em { font-style: normal; color: var(--muted); }
+.cd-tabs { display: flex; gap: 0.3rem; margin-top: 0.45rem; }
+.cd-tabs button {
+  flex: 1; font-family: var(--display); font-weight: 600; font-size: 0.72rem;
+  padding: 0.35rem 0; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--border); background: transparent; color: var(--ink-soft);
+}
+.cd-tabs button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+
+@media (max-width: 900px) {
+  .lanes-head { grid-template-columns: 1fr; gap: 1.1rem; }
+  .flip-grid { grid-template-columns: repeat(2, 1fr); }
+  .pb-narrow { max-width: none; }
+}
+@media (max-width: 600px) {
+  .pb-grid.two { grid-template-columns: 1fr; }
+  .lanes { grid-template-columns: 76px repeat(6, 132px); }
+}
 </style>
 </head>
 <body>
@@ -297,51 +455,223 @@ footer {
 
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="Joohyun Kim home">JK</a>
+    <a aria-label='Joohyun Kim home' class='nav-logo' href='index.html'>JK</a>
     <ul class="nav-links">
-      <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href='index.html#work'>Work</a></li>
+      <li><a href='index.html#about'>About</a></li>
+      <li><a href='index.html#contact'>Contact</a></li>
     </ul>
   </div>
 </nav>
 
 <header class="detail-header wrap">
-  <a href="index.html#work" class="back-link">← Back to work</a>
+  <a class='back-link' href='index.html#work'>← Back to work</a>
   <div class="header-grid">
     <div>
-      <div class="detail-tags" id="dt-tags"></div>
-      <h1 class="detail-title" id="dt-title">ESU Farm</h1>
-      <p class="detail-desc" id="dt-desc"></p>
+      <div class="detail-tags"><span class="detail-tag">Branding</span><span class="detail-tag">Packaging</span><span class="detail-tag">Trade Show</span><span class="detail-tag">Social</span></div>
+      <h1 class="detail-title">ESU Farm</h1>
+      <p class="detail-desc">In-house design at a New Jersey produce importer: building out Tommy's Farm, the company's own fruit brand, and taking ESU to the Global Produce &amp; Floral Show.</p>
     </div>
     <dl class="meta-list">
-      <div><dt class="meta-label">Year</dt><dd class="meta-value" id="dt-year">2026</dd></div>
-      <div><dt class="meta-label">Client</dt><dd class="meta-value" id="dt-client">ESU Farm</dd></div>
-      <div><dt class="meta-label">Category</dt><dd class="meta-value" id="dt-category">Branding, Marketing</dd></div>
-      <div><dt class="meta-label">Role</dt><dd class="meta-value" id="dt-role">Design</dd></div>
+      <div><dt class="meta-label">Year</dt><dd class="meta-value">2026</dd></div>
+      <div><dt class="meta-label">Client</dt><dd class="meta-value">ESU Farm LLC</dd></div>
+      <div><dt class="meta-label">Brands</dt><dd class="meta-value">Tommy's Farm (in-house), ESU (company)</dd></div>
+      <div><dt class="meta-label">Category</dt><dd class="meta-value">Branding, Marketing</dd></div>
+      <div><dt class="meta-label">Role</dt><dd class="meta-value">Graphic Designer &amp; Marketing Associate</dd></div>
     </dl>
   </div>
 </header>
 
-<div class="hero-wrap reveal" id="dt-hero-wrap">
-  <div class="hero-ph c4 cover-lines" id="dt-hero-frame">
-    <span class="frame-badge" id="dt-hero-badge"><span class="dot"></span>ESU Farm</span>
-    <span class="hero-hint">+ Add hero image</span>
+<div class="hero-wrap reveal">
+  <img class="hero-img hero-crop" src="assets/esu-farm/booth-night.jpg" alt="ESU 20×20 ft booth render: hanging ESU ring sign, five product banner panels, a lit Tommy's Farm counter and a lounge area" style="object-position:center 55%">
+</div>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Overview</h2></div>
+  <div class="row-body">
+    <p class="sec-statement">One fruit brand, one company, one show floor.</p>
+    <p class="sec-overview">ESU sources produce from growers abroad and distributes it across the US. Tommy's Farm is its consumer brand — shine muscat, pomegranate and mandarins carried by a farm-boy mascot — and I built it out from the box to the website. In October 2026 both names went to the Global Produce &amp; Floral Show in Orlando, so the show work runs on two voices: ESU speaking to buyers as a sourcing partner, Tommy's Farm speaking as the product on the shelf.</p>
+  </div>
+</section>
+
+<!-- CHAPTER 1 -->
+<div class="chapter-wrap reveal">
+  <div class="chapter tommy">
+    <div>
+      <span class="chapter-kicker">In-house brand</span>
+      <h2 class="chapter-name">Tommy's Farm</h2>
+      <p class="chapter-body">ESU's own produce brand. A navy-and-cream premium line for shine muscat alongside brighter, character-led packs for the rest of the range, tied together by one mascot and one website.</p>
+    </div>
+    <ul class="chapter-scope">
+      <li>Packaging</li>
+      <li>Sales one-pagers</li>
+      <li>Website</li>
+    </ul>
   </div>
 </div>
 
 <section class="row reveal">
-  <div><h2 class="row-label" id="dt-section-label">Overview</h2></div>
+  <div><h2 class="row-label">Shine Muscat 1lb box</h2><span class="row-sub">01 — Packaging</span></div>
   <div class="row-body">
-    <p class="sec-statement" id="dt-statement">I led brand identity and marketing for ESU Farm.</p>
-    <p class="sec-placeholder" id="dt-overview">Add a short project overview here — the brief, the goal, and who it was for.</p>
-    <div class="gallery" id="dt-gallery" style="margin-top:2rem"></div>
+    <div class="pb-grid"><img src="assets/esu-farm/shine-box-views.jpg" alt="Tommy's Farm Premium Shine Muscat box: front, back, side, open top and two perspective views, with a packaging guideline panel" loading="lazy" width="1800" height="1350"></div>
+    <div class="pb-grid pb-narrow" style="margin-top:1rem"><img src="assets/esu-farm/shine-tray.jpg" alt="Single 1lb shine muscat clamshell in its navy tray with the Tommy's Farm label" loading="lazy" width="1400" height="1243"></div>
+    <p class="pb-caption">Four 1lb (454g) clamshells to a case. Deep navy and cream with a line-drawn vineyard wrapping all four sides, gold script for “Premium”, and a matte finish so the fruit carries the colour. The tray and clamshell label repeat the same navy so a single pack still reads as the box it came from.</p>
   </div>
 </section>
 
-<div id="dt-blocks"></div>
+<section class="row reveal">
+  <div><h2 class="row-label">Product one-pagers</h2><span class="row-sub">02 — Sales collateral</span></div>
+  <div class="row-body">
+    <div class="flip-grid">
+      <button class="flip" type="button" aria-label="Shine Muscat one-pager — show back"><div class="flip-inner"><img src="assets/esu-farm/onepager-shine-front.jpg" alt="Shine Muscat one-pager front" loading="lazy" width="643" height="900"><img class="back" src="assets/esu-farm/onepager-shine-back.jpg" alt="Shine Muscat one-pager back" loading="lazy" width="643" height="900"></div><span class="flip-label"><b>Shine Muscat</b></span></button>
+      <button class="flip" type="button" aria-label="Pomegranate one-pager — show back"><div class="flip-inner"><img src="assets/esu-farm/onepager-pom-front.jpg" alt="Pomegranate one-pager front" loading="lazy" width="643" height="900"><img class="back" src="assets/esu-farm/onepager-pom-back.jpg" alt="Pomegranate one-pager back" loading="lazy" width="643" height="900"></div><span class="flip-label"><b>Pomegranate</b></span></button>
+      <button class="flip" type="button" aria-label="Mandarin one-pager — show back"><div class="flip-inner"><img src="assets/esu-farm/onepager-mandarin-front.jpg" alt="Mandarin one-pager front" loading="lazy" width="643" height="900"><img class="back" src="assets/esu-farm/onepager-mandarin-back.jpg" alt="Mandarin one-pager back" loading="lazy" width="643" height="900"></div><span class="flip-label"><b>Mandarin</b></span></button>
+      <button class="flip" type="button" aria-label="Orri Mandarin one-pager — show back"><div class="flip-inner"><img src="assets/esu-farm/onepager-orri-front.jpg" alt="Orri Mandarin one-pager front" loading="lazy" width="643" height="900"><img class="back" src="assets/esu-farm/onepager-orri-back.jpg" alt="Orri Mandarin one-pager back" loading="lazy" width="643" height="900"></div><span class="flip-label"><b>Orri Mandarin</b></span></button>
+    </div>
+    <p class="flip-hint">Hover or tap a card to see the back.</p>
+    <p class="pb-caption">A 5×7 sheet per product for buyers: one flat colour per fruit, a chunky headline, the retail pack front and centre, and a QR code to tommysfarm.us. Same grid on all four, so the set reads as a range when fanned out on a table.</p>
+  </div>
+</section>
 
-<a href="work-summit-ct.html" class="next-project">
+<section class="row reveal">
+  <div><h2 class="row-label">tommysfarm.us</h2><span class="row-sub">03 — Website</span></div>
+  <div class="row-body">
+    <div class="pb-grid"><img src="assets/esu-farm/web-mockup-01.jpg" alt="tommysfarm.us home page hero on desktop and mobile: Good Things For Every Craving with the jumping Tommy mascot" loading="lazy" width="2000" height="1250"></div>
+    <div class="pb-grid two" style="margin-top:1rem">
+      <img src="assets/esu-farm/web-mockup-02.jpg" alt="Four desktop sections: Tommy's Farm Picks, Picked With Care process, Why Pick Tommy's farm scene and the contact form" loading="lazy" width="2000" height="1250">
+      <img src="assets/esu-farm/web-mockup-03.jpg" alt="Five mobile screens of tommysfarm.us from hero to contact form" loading="lazy" width="2000" height="1250">
+    </div>
+    <p class="pb-caption">A one-page brand site: the season's picks, a four-step sourcing story told by the mascot, a scroll-driven farm road scene and a wholesale contact form — cream, tomato red and farm green, built mobile-first. <a href='https://tommysfarm.us/' rel='noopener' target='_blank'>Visit the site ↗</a></p>
+  </div>
+</section>
+
+<!-- CHAPTER 2 -->
+<div class="chapter-wrap reveal">
+  <div class="chapter show">
+    <div>
+      <span class="chapter-kicker">Trade show — Orlando, Oct 14–16, 2026</span>
+      <h2 class="chapter-name">Global Produce &amp; Floral Show</h2>
+      <p class="chapter-body">ESU's booth #2091 at the IFPA show. The company name went on the build and the buyer material; the Tommy's Farm range and mascot filled the product wall, the sampling counter and the brand's own social feed.</p>
+    </div>
+    <ul class="chapter-scope">
+      <li>Booth design</li>
+      <li>Product banner wall</li>
+      <li>Bi-fold brochure</li>
+      <li>Print &amp; digital ads</li>
+      <li>Banner poster</li>
+      <li>Social — two accounts</li>
+    </ul>
+  </div>
+</div>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Booth</h2><span class="row-sub">04 — 20×20 ft island</span></div>
+  <div class="row-body">
+    <div class="pb-grid"><img src="assets/esu-farm/booth-day.jpg" alt="Daylight render of the ESU booth: hanging ring sign, global sourcing banner, five product panels, bar seating and a sampling counter" loading="lazy" width="1800" height="1200"></div>
+    <p class="pb-caption">A wood-frame island: a hanging ESU ring sign visible across the hall, a Global Sourcing banner on the aisle side, five product panels behind a bar counter, and a lit ESU × Tommy's Farm counter at the corner for sampling.</p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Product banner wall</h2><span class="row-sub">05 — Booth graphics</span></div>
+  <div class="row-body">
+    <div class="pb-grid"><img src="assets/esu-farm/banner-wall.jpg" alt="Five vertical product banners — Shine Muscat (Seoul Shine), Premium Shine Muscat, Pomegranate, Mandarin, Orri Mandarin — each above a shelf niche holding its retail box" loading="lazy" width="2000" height="1040"></div>
+    <p class="pb-caption">One panel per product, each in its box's own colour, the name set vertically so it reads from down the aisle, and a shelf niche cut in to hold the real box.</p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Bi-fold brochure</h2><span class="row-sub">06 — Print</span></div>
+  <div class="row-body">
+    <div class="bro-stage" data-state="closed" role="button" tabindex="0" aria-label="Bi-fold brochure — click to open or close">
+      <div class="bro-shadow"></div>
+      <div class="bro">
+        <div class="bro-panel bro-base">
+          <img class="f" src="assets/esu-farm/brochure-inside-right.jpg" alt="Inside right: Seoul Shine — Where crisp meets shine" loading="lazy" width="900" height="1398">
+          <img class="b" src="assets/esu-farm/brochure-back.jpg" alt="Back cover: Our Brands — Tommy's Farm and Seoul Shine, with ESU contact details" loading="lazy" width="900" height="1398">
+        </div>
+        <div class="bro-panel bro-leaf">
+          <img class="f" src="assets/esu-farm/brochure-front.jpg" alt="Front cover: Rooted Experience. Grown in Trust." loading="lazy" width="900" height="1398">
+          <img class="b" src="assets/esu-farm/brochure-inside-left.jpg" alt="Inside left: Tommy's Farm — Premium. Always. — four products with season and pack style" loading="lazy" width="900" height="1398">
+        </div>
+      </div>
+    </div>
+    <div class="bro-ctrl" role="group" aria-label="Brochure view">
+      <button type="button" data-view="closed" aria-pressed="true">Front cover</button>
+      <button type="button" data-view="open" aria-pressed="false">Open</button>
+      <button type="button" data-view="back" aria-pressed="false">Back cover</button>
+      <span>Click the brochure to open or close it.</span>
+    </div>
+    <div class="pb-grid" style="margin-top:1rem">
+      <img src="assets/esu-farm/brochure-mockup-inside.jpg" alt="Bi-fold brochure mockup: inside spread open — the Tommy's Farm range and a Seoul Shine page — beside the closed front cover" loading="lazy" width="2000" height="1250">
+    </div>
+    <p class="pb-caption">The leave-behind for buyers: ESU and its brands on the outside, then the inside split between the Tommy's Farm range — season and pack size under each product — and a Seoul Shine page for the premium shine muscat.</p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Show ads</h2><span class="row-sub">07 — Print &amp; digital</span></div>
+  <div class="row-body">
+    <div class="pb-grid" style="gap:0.9rem">
+      <img src="assets/esu-farm/ad-mockup-print.jpg" alt="10×15 print ad mockup on a newspaper page: Delightful. Premium. Excellent. — come see us at Booth #2091" loading="lazy" width="2000" height="1250">
+      <img src="assets/esu-farm/ad-mockup-web.jpg" alt="300×250 web banner mockup in a news-site sidebar on desktop and in-feed on mobile" loading="lazy" width="2000" height="1250">
+    </div>
+    <p class="pb-caption">One ad in two sizes for The Produce News: a 10×15 print page and a 300×250 web banner. The same fruit close-up and three-word headline carry across; the booth number and a “Click to schedule” button do the work in the digital cut.</p>
+  </div>
+</section>
+
+<section class="row reveal">
+  <div><h2 class="row-label">Global Sourcing banner</h2><span class="row-sub">08 — Booth banner, 47.5×115.7 in</span></div>
+  <div class="row-body">
+    <div class="pb-grid"><img src="assets/esu-farm/poster-mockup.jpg" alt="Global Sourcing banner standing in an aluminium frame, with close-ups of the sourcing map and the brands and year-round calendar" loading="lazy" width="2000" height="1250"></div>
+    <p class="pb-caption">The tall banner on the booth's aisle side: where ESU sources from, the boxes it ships, a season chart, and how it reaches the US — the company pitch in one standing read.</p>
+  </div>
+</section>
+
+<!-- 09 — social: full-width two-lane timeline -->
+<div class="lanes-wrap reveal">
+  <div class="lanes-head">
+    <div><h2 class="row-label">Show social</h2><span class="row-sub">09 — Reels, two accounts</span></div>
+    <p class="sec-overview" style="font-size:0.98rem">The same show, told twice. ESU's feed stayed live-action and buyer-facing — the trip, opening day, the meetings. Tommy's Farm ran a character-led countdown from the farm to the booth. Lined up on one date axis so the two voices read side by side.</p>
+  </div>
+  <div class="lanes-scroll">
+    <div class="lanes">
+      <div></div>
+      <div class="lane-date">Sep 30</div>
+      <div class="lane-date">Oct 6</div>
+      <div class="lane-date">Oct 9</div>
+      <div class="lane-date show-day">Oct 13 — show week</div>
+      <div class="lane-date">Oct 16</div>
+      <div class="lane-date">Oct 23</div>
+
+      <div class="lane-name">ESU<small>Company · live action</small></div>
+      <div class="lane-cell empty"></div>
+      <div class="lane-cell empty"></div>
+      <div class="lane-cell"><video src="assets/esu-farm/reel-esu-1009-to-orlando.mp4" poster="assets/esu-farm/reel-esu-1009-to-orlando.jpg" controls playsinline preload="none"></video><span class="lane-cap">To Orlando <em>· 0:13</em></span></div>
+      <div class="lane-cell"><video class="land" src="assets/esu-farm/reel-esu-1013-open.mp4" poster="assets/esu-farm/reel-esu-1013-open.jpg" controls playsinline preload="none"></video><span class="lane-cap">We're open <em>· 0:13</em></span></div>
+      <div class="lane-cell empty"></div>
+      <div class="lane-cell"><video class="land" src="assets/esu-farm/reel-esu-1023-talk.mp4" poster="assets/esu-farm/reel-esu-1023-talk.jpg" controls playsinline preload="none"></video><span class="lane-cap">The conversation continues <em>· 0:13</em></span></div>
+
+      <div class="lane-name">Tommy's Farm<small>Brand · character</small></div>
+      <div class="lane-cell"><video src="assets/esu-farm/reel-tommy-0930-on-the-way.mp4" poster="assets/esu-farm/reel-tommy-0930-on-the-way.jpg" controls playsinline preload="none"></video><span class="lane-cap">Tommy's on the way <em>· 0:40</em></span></div>
+      <div class="lane-cell"><video src="assets/esu-farm/reel-tommy-1006-growers-to-booth.mp4" poster="assets/esu-farm/reel-tommy-1006-growers-to-booth.jpg" controls playsinline preload="none"></video><span class="lane-cap">From growers to booth <em>· 0:41</em></span></div>
+      <div class="lane-cell"><video src="assets/esu-farm/reel-tommy-1009-products.mp4" poster="assets/esu-farm/reel-tommy-1009-products.jpg" controls playsinline preload="none"></video><span class="lane-cap">The line-up <em>· 0:31</em></span></div>
+      <div class="lane-cell" data-countdown>
+        <video src="assets/esu-farm/reel-tommy-1013-d3.mp4" poster="assets/esu-farm/reel-tommy-1013-d3.jpg" controls playsinline preload="none"></video>
+        <div class="cd-tabs" role="group" aria-label="Countdown day">
+          <button type="button" aria-pressed="true" data-src="reel-tommy-1013-d3">D-3</button>
+          <button type="button" aria-pressed="false" data-src="reel-tommy-1013-d2">D-2</button>
+          <button type="button" aria-pressed="false" data-src="reel-tommy-1013-d1">D-1</button>
+        </div>
+        <span class="lane-cap">Countdown ×3 <em>· 0:20 each</em></span>
+      </div>
+      <div class="lane-cell"><video src="assets/esu-farm/reel-tommy-1016-thank-you.mp4" poster="assets/esu-farm/reel-tommy-1016-thank-you.jpg" controls playsinline preload="none"></video><span class="lane-cap">Thank you <em>· 0:22</em></span></div>
+      <div class="lane-cell empty"></div>
+    </div>
+  </div>
+</div>
+
+<a class='next-project' href='work-summit-ct.html'>
   <div>
     <p class="next-label">Next Project</p>
     <p class="next-name">Summit C&amp;T</p>
@@ -352,108 +682,48 @@ footer {
 <footer>
   <span class="footer-copy">© 2024 Joohyun Kim. All rights reserved.</span>
   <div class="footer-links">
-    <a href="index.html#work">Work</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#contact">Contact</a>
+    <a href='index.html#work'>Work</a>
+    <a href='index.html#about'>About</a>
+    <a href='index.html#contact'>Contact</a>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
 <script>
-const SLUG = 'esu-farm';
+// one-pagers: tap to flip (hover handles it on desktop)
+document.querySelectorAll('.flip').forEach(b => b.addEventListener('click', () => b.classList.toggle('on')));
 
-function esc(s) {
-  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
+// brochure: click toggles open/closed; buttons pick a view
+document.querySelectorAll('.bro-stage').forEach(stage => {
+  const btns = stage.nextElementSibling.querySelectorAll('button[data-view]');
+  const set = view => {
+    stage.dataset.state = view;
+    btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.view === view));
+  };
+  const toggle = () => set(stage.dataset.state === 'open' ? 'closed' : 'open');
+  stage.addEventListener('click', toggle);
+  stage.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  btns.forEach(b => b.addEventListener('click', () => set(b.dataset.view)));
+});
 
-function imageGrid(images, columns) {
-  const cols = Number(columns) || 1;
-  const multi = cols > 1 ? ' multi' : '';
-  return '<div class="pb-grid' + multi + '" style="grid-template-columns: repeat(' + cols + ', 1fr);">'
-    + images.map(u => '<img src="' + esc(u) + '" alt="" loading="lazy">').join('')
-    + '</div>';
-}
+// reels: play with sound; starting one pauses the others
+document.querySelectorAll('.lane-cell video').forEach(v => v.addEventListener('play', () => {
+  document.querySelectorAll('.lane-cell video').forEach(o => { if (o !== v) o.pause(); });
+}));
 
-function renderContentBlocks(blocks) {
-  const wrap = document.getElementById('dt-blocks');
-  if (!wrap) return;
-  if (!blocks.length) return;   // keep the page's built-in sections
-  wrap.innerHTML = blocks.map(b => {
-    const label = (b.title || b.heading)
-      ? '<div><h2 class="row-label">' + esc(b.title || b.heading) + '</h2>'
-        + ((b.sublabel || b.subtitle) ? '<span class="row-sub">' + esc(b.sublabel || b.subtitle) + '</span>' : '')
-        + '</div>'
-      : '<div></div>';
-
-    let content = '';
-    if (b.type === 'text') {
-      content = '<div class="pb-text' + (Number(b.columns) === 2 ? ' cols2' : '') + '">' + esc(b.body) + '</div>';
-    } else if (b.type === 'images' && (b.images || []).length) {
-      content = imageGrid(b.images, b.columns)
-        + (b.caption ? '<p class="pb-caption">' + esc(b.caption) + '</p>' : '');
-    } else if (b.type === 'heading') {
-      content = (b.subtitle && !b.sublabel) ? '<p class="sec-overview">' + esc(b.subtitle) + '</p>' : '';
-    }
-    if (!content && !(b.title || b.heading)) return '';
-    return '<section class="row reveal">' + label + '<div class="row-body">' + content + '</div></section>';
-  }).join('');
-  observeReveals();
-}
-
-(async function loadProjectContent() {
-  try {
-    const { data: p, error } = await supabaseClient.from('projects').select('*').eq('slug', SLUG).single();
-    if (error || !p) return;
-
-    if (p.name) { document.getElementById('dt-title').textContent = p.name; document.title = p.name + ' — Joohyun Kim'; }
-    if (p.client) document.getElementById('dt-client').textContent = p.client;
-    if (p.year) document.getElementById('dt-year').textContent = p.year;
-    if (p.category) document.getElementById('dt-category').textContent = p.category;
-    if (p.role) document.getElementById('dt-role').textContent = p.role;
-    if (p.description) document.getElementById('dt-desc').textContent = p.description;
-    if (p.section_label) document.getElementById('dt-section-label').textContent = p.section_label;
-
-    if (p.tags && p.tags.length) {
-      document.getElementById('dt-tags').innerHTML = p.tags.map(t => '<span class="detail-tag">' + esc(t) + '</span>').join('');
-    }
-    if (p.accent_color) document.documentElement.style.setProperty('--accent', p.accent_color);
-
-    if (p.statement) document.getElementById('dt-statement').textContent = p.statement;
-
-    if (p.overview) {
-      const ov = document.getElementById('dt-overview');
-      ov.textContent = p.overview;
-      ov.className = 'sec-overview';
-    }
-
-    if (p.hero_image_url) {
-      document.getElementById('dt-hero-wrap').innerHTML =
-        '<img class="hero-img hero-crop" src="' + esc(p.hero_image_url) + '" alt="' + esc(p.name || '') + '">';
-    } else {
-      const frame = document.getElementById('dt-hero-frame');
-      frame.className = 'hero-ph ' + (p.cover_class || '') + ' ' + (p.cover_pattern || '');
-      if (p.name) document.getElementById('dt-hero-badge').innerHTML = '<span class="dot"></span>' + esc(p.name);
-    }
-
-    const galleryEl = document.getElementById('dt-gallery');
-    if (p.gallery_image_urls && p.gallery_image_urls.length) {
-      galleryEl.style.gridTemplateColumns = 'repeat(' + (Number(p.gallery_columns) || 2) + ', 1fr)';
-      galleryEl.innerHTML = p.gallery_image_urls.map(u => '<img src="' + esc(u) + '" alt="" loading="lazy">').join('');
-    }
-
-    renderContentBlocks(p.content_blocks || []);
-  } catch (e) {
-    // Supabase unavailable — static fallback stays visible.
-  }
-})();
+// countdown tabs swap the clip in place
+document.querySelectorAll('[data-countdown]').forEach(cell => {
+  const v = cell.querySelector('video');
+  cell.querySelectorAll('.cd-tabs button').forEach(btn => btn.addEventListener('click', () => {
+    cell.querySelectorAll('.cd-tabs button').forEach(b => b.setAttribute('aria-pressed', b === btn));
+    const s = 'assets/esu-farm/' + btn.dataset.src;
+    v.poster = s + '.jpg'; v.src = s + '.mp4'; v.play().catch(() => {});
+  }));
+});
 
 const tag = document.getElementById('cursorTag');
 if (tag) {
-  let mx = 0, my = 0;
   document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    tag.style.left = mx + 'px'; tag.style.top = my + 'px';
+    tag.style.left = e.clientX + 'px'; tag.style.top = e.clientY + 'px';
     tag.classList.add('on');
   });
   document.addEventListener('mouseleave', () => tag.classList.remove('on'));
@@ -464,11 +734,7 @@ const obs = new IntersectionObserver(entries => {
     if (e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); }
   });
 }, { threshold: 0.08 });
-
-function observeReveals() {
-  document.querySelectorAll('.reveal:not(.v)').forEach(el => obs.observe(el));
-}
-observeReveals();
+document.querySelectorAll('.reveal:not(.v)').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
