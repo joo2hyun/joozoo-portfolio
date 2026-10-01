@@ -13,3 +13,6 @@ Shaashop is left out of this edition.
 python3 mock.py && python3 build.py
 NODE_PATH=$(npm root -g) node render.mjs   # → portfolio.pdf
 ```
+
+Note: the published `portfolio.pdf` is a later edit with more mockups than this
+source produces, so re-rendering will overwrite it with the older version.
