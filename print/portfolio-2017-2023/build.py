@@ -1,6 +1,6 @@
 """Builds index.html — the 2017–2023 portfolio deck in the H_mix (D × E) style.
 
-Run `python3 build.py`, then `node render.mjs` to print portfolio.pdf.
+Run `python3 mock.py` and `python3 build.py`, then `node render.mjs` to print portfolio.pdf.
 Each page is 1440×810. Shaashop is intentionally left out of this edition.
 """
 from html import escape
@@ -101,6 +101,11 @@ def series(p, sub, label, title, desc, items):
     letters = "abcdefghij"[:len(items)]
     cells = [card(img, cap, area=letters[i]) for i, (img, cap) in enumerate(items)]
     grid(p, sub, label, title, desc, cols, "1fr", [" ".join(letters)], cells)
+
+
+def mockup(p, sub, label, title, desc, img, caption):
+    """A single full-tray mockup scene (see mock.py)."""
+    grid(p, sub, label, title, desc, "1fr", "1fr", ["a"], [card(img, caption, "cover", "a")])
 
 
 def steps(p, sub, label, title, desc, items, fit="cover"):
@@ -223,7 +228,7 @@ grid(p, "01.1", "RED Talks", "RED Talks",
      "playful type that made an internal event feel like a show.",
      "1fr 1fr", "1fr", ["a b"],
      [card("reingold-red-talks-poster", "Poster · All Grown Up", "contain", "a"),
-      card("reingold-red-talks-ppt", "PPT template · Now That’s What I Call RED Talks", "contain", "b")])
+      card("mock-reingold-red-talks-ppt", "PPT template · Now That’s What I Call RED Talks", "cover", "b")])
 overview(p, "01.2", "Brochure", "NBA Mind Health",
          "A brochure on the mental-skills fundamentals, built around player voices.",
          "Big quotes, clear steps — mental health in the players’ own words.",
@@ -232,12 +237,10 @@ overview(p, "01.2", "Brochure", "NBA Mind Health",
           "Condensed display type carries the energy of the court; a calm, structured "
           "text column keeps the guidance easy to follow."],
          "reingold-nba-brochure", "Brochure spread")
-series(p, "01.3", "Fact sheets", "DC Health fact sheets",
+mockup(p, "01.3", "Fact sheets", "DC Health fact sheets",
        "A COVID-19 mask guidance series for DC Health — icons and plain-language "
        "do’s and don’ts that read at a glance.",
-       [("reingold-dc-health-1", "When to wear a mask"),
-        ("reingold-dc-health-2", "Improve fit & layers"),
-        ("reingold-dc-health-3", "Do not")])
+       "mock-reingold-dc-health", "Fact sheet series · 3 sheets")
 
 # ── 02 CAPX ──
 p = P["02"]
@@ -259,9 +262,8 @@ grid(p, "02.2", "Expo system", "Poster, email &amp; banner",
       card("capx-expo-banner", "Web banner", area="b")])
 grid(p, "02.3", "Expo social", "Expo social media",
      "A countdown and how-to series for Instagram — tips before the Expo, next steps after it.",
-     "1fr 1fr 1fr 1fr 0.78fr", "1fr 1fr", ["a b c d r", "e f g h s"],
-     [card(f"capx-expo-social-{i+1}", None, area="abcdefgh"[i]) for i in range(8)] +
-     [card("capx-expo-reel-1", "Reels", area="r"), card("capx-expo-reel-2", None, area="s")])
+     "1fr", "1fr", ["a"],
+     [card("mock-capx-expo-social", "Instagram · feed, post & reels", "cover", "a")])
 overview(p, "02.4", "Expert Exchange", "Expert Exchange",
          "Virtual one-on-ones with creative professionals and Chicago business leaders.",
          "Faces first — the experts are the reason to sign up.",
@@ -272,10 +274,8 @@ overview(p, "02.4", "Expert Exchange", "Expert Exchange",
          "capx-expert-exchange-poster", "Poster")
 grid(p, "02.5", "Expert Exchange social", "Expert Exchange social",
      "Speaker cards for Instagram and engagement posts — duotone portraits with the date up front.",
-     "1fr 1fr 1fr 1.25fr", "1.3fr 1fr", ["a b c x", "d e f x"],
-     [card(f"capx-ee-social-{i+1}", ("Instagram" if i == 0 else "Engage" if i == 3 else None),
-           area="abcdef"[i]) for i in range(6)] +
-     [card("capx-ee-banner", "Banner", area="x")])
+     "1fr", "1fr", ["a"],
+     [card("mock-capx-ee-social", "Instagram · speaker & engage posts", "cover", "a")])
 steps(p, "02.6", "Panels", "Panel posters",
       "Two talks, two tones — an institutional panel and an open conversation.",
       [("A", "capx-change-in-the-field",
@@ -347,11 +347,9 @@ grid(p, "04.6", "Precon & gallery", "Precon rooms &amp; map gallery",
      [card("esri-map-gallery-1", "Map Gallery · 41×80″", area="g"),
       card("esri-map-gallery-2", None, area="h")])
 grid(p, "04.7", "Social", "Explore the Expo",
-     "Social posts for UC 2022, sized for Instagram, LinkedIn and Facebook.",
-     "1fr 1fr 1fr", "1.45fr 1fr", ["a b c", "d e f"],
-     [card(f"esri-social-{i+1}",
-           {0: "Instagram · 1200×1200", 3: "LinkedIn & Facebook · 1200×628"}.get(i),
-           area="abcdef"[i]) for i in range(6)])
+     "Instagram posts for UC 2022 — square speaker cards and landscape feed posts.",
+     "1fr", "1fr", ["a"],
+     [card("mock-esri-social", "Instagram · 1200×1200 & 1200×628", "cover", "a")])
 steps(p, "04.8", "Kiosks", "Partner kiosks",
       "Flex PVC inserts (39×95″) for partner kiosks in the expo hall.",
       [("A", "esri-kiosk-usda", "<i>USDA</i> — advancing scientific knowledge in agriculture."),
@@ -364,7 +362,7 @@ overview(p, "04.9", "Asia Pacific", "Asia Pacific",
          ["Landmarks from across the region — the Sydney Opera House, a torii gate, the "
           "Taj Mahal, a junk boat — are tied together by rivers and ribbons of colour.",
           "Hand-lettered script and Esri’s palette keep it on brand on every screen."],
-         "esri-asia-pacific", "Desktop background", fit="contain")
+         "mock-esri-asia-pacific", "Desktop background")
 steps(p, "04.10", "Airport", "Airport operations",
       "Safety and technologies — trade-show pieces for Esri’s airport operations team.",
       [("A", "esri-airport-popup", "<i>Single rigid pop-up</i> — 29×89″."),
@@ -381,11 +379,9 @@ overview(p, "05.1", "Holiday card", "Holiday card 2022",
           "skyline in snowfall, with the Vertical rocket flying through to “Happy Holidays.”",
           "Built as a motion graphic for email and social."],
          "vertical-holiday-card", "Motion graphic", fit="contain")
-series(p, "05.2", "Social", "Social media",
+mockup(p, "05.2", "Social", "Social media",
        "Service cards for Instagram and a short animation — one icon style, four colours.",
-       [("vertical-instagram-1", "Instagram"), ("vertical-instagram-2", None),
-        ("vertical-instagram-3", None), ("vertical-instagram-4", None),
-        ("vertical-animation", "Animation")])
+       "mock-vertical-social", "Instagram · posts & animated reel")
 
 # ── 06 Harris Theater ──
 p = P["06"]
@@ -399,11 +395,10 @@ grid(p, "06.1", "Hamburg Ballet", "Hamburg Ballet",
       card("harris-hamburg-magazine-2", None, area="c"),
       card("harris-hamburg-postcard-front", "Postcard", area="d"),
       card("harris-hamburg-postcard-back", None, area="e")])
-series(p, "06.2", "LINES Ballet", "Alonzo King LINES Ballet",
+mockup(p, "06.2", "LINES Ballet", "Alonzo King LINES Ballet",
        "City panels for <i>Deep River</i> — golden textures that echo the company’s "
        "contemporary movement.",
-       [("harris-lines-city-panel-1", "City panel"), ("harris-lines-city-panel-2", None),
-        ("harris-lines-city-panel-3", None)])
+       "mock-harris-lines-city-panels", "City panels")
 
 # closing — mirrors the H_mix about/contact page
 page(f'''
