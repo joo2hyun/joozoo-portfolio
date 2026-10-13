@@ -16,3 +16,7 @@ NODE_PATH=$(npm root -g) node render.mjs   # → portfolio.pdf
 
 Note: the published `portfolio.pdf` is a later edit with more mockups than this
 source produces, so re-rendering will overwrite it with the older version.
+
+Video links: `add_video_links.py` adds play badges and clickable links on
+pages 28 (Vertical holiday card) and 32 (LINES Ballet city panels), pointing to
+the MP4s in `assets/video/`. Run it once after replacing `portfolio.pdf`.
